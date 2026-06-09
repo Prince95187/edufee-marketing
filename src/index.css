@@ -235,8 +235,22 @@
   .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 }
 
+/* ── Testimonial marquee ─────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
 /* ── Reduced-motion ─────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
 import {
   Users, IndianRupee, CalendarCheck, Bell, Clock,
   ArrowRight, Menu, X, Star, MessageSquare,
@@ -51,6 +51,29 @@ function FadeIn({ children, from = 'left', delay = 0, className = '' }) {
       transition={{ duration: 0.75, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >{children}</motion.div>
+  );
+}
+
+// ── Magnetic button — Emil spring physics ─────────────────────────────────────
+function MagneticButton({ children }) {
+  const ref = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const x = useSpring(rawX, { stiffness: 200, damping: 18, mass: 0.08 });
+  const y = useSpring(rawY, { stiffness: 200, damping: 18, mass: 0.08 });
+
+  function onMove(e) {
+    const r = ref.current.getBoundingClientRect();
+    rawX.set((e.clientX - (r.left + r.width  / 2)) * 0.28);
+    rawY.set((e.clientY - (r.top  + r.height / 2)) * 0.28);
+  }
+  function onLeave() { rawX.set(0); rawY.set(0); }
+
+  return (
+    <motion.div ref={ref} style={{ x, y }} onMouseMove={onMove} onMouseLeave={onLeave}
+      className="inline-block">
+      {children}
+    </motion.div>
   );
 }
 
@@ -414,20 +437,21 @@ function EventsScreen() {
 
 // ── Testimonial card ──────────────────────────────────────────────────────────
 function TestimonialCard({ quote, name, role, school }) {
+  const initials = name.split(' ').map(w => w[0]).slice(0, 2).join('');
   return (
-    <div className="bg-white rounded-[22px] p-8 border border-black/[0.055] flex flex-col w-[340px] md:w-[380px]"
-         style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)', minHeight: 280 }}>
-      <div className="flex gap-0.5 mb-5">
-        {[...Array(5)].map((_, i) => <Star key={i} size={13} className="text-amber-400 fill-amber-400" />)}
+    <div className="bg-white rounded-[22px] p-7 border border-black/[0.055] flex flex-col flex-shrink-0"
+         style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)', width: 360 }}>
+      <div className="flex gap-0.5 mb-4">
+        {[...Array(5)].map((_, i) => <Star key={i} size={12} className="text-amber-400 fill-amber-400" />)}
       </div>
-      <p className="text-[15px] text-[#1D1D1F] leading-[1.65] mb-6 flex-1">"{quote}"</p>
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-[#0071E3] rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="text-white font-bold text-[13px]">{name[0]}</span>
+      <p className="text-[14.5px] text-[#1D1D1F] leading-[1.7] mb-6 flex-1">"{quote}"</p>
+      <div className="flex items-center gap-3 pt-4 border-t border-black/[0.05]">
+        <div className="w-9 h-9 bg-[#0071E3] rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="text-white font-bold text-[11px]">{initials}</span>
         </div>
         <div className="min-w-0">
           <p className="text-[13px] font-semibold text-[#1D1D1F] truncate">{name}</p>
-          <p className="text-[11.5px] text-[#6E6E73] truncate">{role} · {school}</p>
+          <p className="text-[11px] text-[#6E6E73] truncate">{role} · {school}</p>
         </div>
       </div>
     </div>
@@ -635,59 +659,84 @@ export default function MarketingPage() {
         </AnimatePresence>
       </header>
 
-      {/* ── Hero — ContainerScroll ──────────────────────────────────────────── */}
-      <section className="pt-[52px] bg-[#0A0E1A] overflow-hidden">
-        <ContainerScroll
-          titleComponent={
-            <div className="text-center px-5 pb-8">
+      {/* ── Hero — asymmetric split ───────────────────────────────────────── */}
+      <section className="min-h-[100dvh] bg-[#0A0E1A] overflow-hidden flex flex-col justify-center pt-[52px]">
+        <div className="max-w-[1200px] mx-auto px-5 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[52%_48%] gap-8 xl:gap-16 items-center py-16 lg:py-20">
+
+            {/* ── Left: text ── */}
+            <div>
               <motion.p
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[12px] font-semibold text-white/40 uppercase tracking-[0.18em] mb-7">
+                className="flex items-center gap-2 text-[11px] font-semibold text-white/30 tracking-[0.1em] mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0071E3] flex-shrink-0" />
                 50+ schools · Telangana &amp; Andhra Pradesh
               </motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[clamp(52px,8vw,96px)] font-black text-white leading-[1.0] tracking-[-0.04em] mb-6"
+
+              <motion.h1
+                initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[clamp(52px,7vw,88px)] font-black text-white leading-[0.96] tracking-[-0.04em] mb-6"
                 style={{ textWrap: 'balance' }}>
                 School fees,<br />simplified.
               </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[17px] md:text-[18px] text-white/50 leading-[1.65] max-w-[520px] mx-auto mb-10">
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[17px] text-white/45 leading-[1.7] max-w-[430px] mb-10">
                 Collect fees, track attendance, and keep parents informed.
-                One platform. Four apps. Built for Indian schools.
+                One platform, four apps, built for Indian schools.
               </motion.p>
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-wrap items-center justify-center gap-4">
-                <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all active:scale-[0.97] shadow-[0_4px_28px_rgba(0,113,227,0.45)]">
-                  Start free — all 4 apps
-                </Link>
-                <a href="#apps" className="flex items-center gap-1.5 text-[14px] font-medium text-white/50 hover:text-white/80 transition-colors">
-                  See how it works <ArrowRight size={13} strokeWidth={2} />
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.21, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-wrap items-center gap-4 mb-14">
+                <MagneticButton>
+                  <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[14px] font-semibold px-7 py-3.5 rounded-full transition-colors active:scale-[0.97] shadow-[0_4px_28px_rgba(0,113,227,0.45)] inline-block">
+                    Start free — all 4 apps
+                  </Link>
+                </MagneticButton>
+                <a href="#apps" className="flex items-center gap-1.5 text-[13px] font-medium text-white/45 hover:text-white/70 transition-colors">
+                  See how it works <ArrowRight size={12} strokeWidth={2} />
                 </a>
               </motion.div>
-            </div>
-          }
-        >
-          <DashboardMockup compact />
-        </ContainerScroll>
-      </section>
 
-      {/* ── Stats strip ────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-white border-b border-black/[0.06]">
-        <div className="max-w-[860px] mx-auto px-5">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-black/[0.07]">
-            {STATS.map((s, i) => (
-              <FadeUp key={s.label} delay={i * 0.07}>
-                <div className="text-center py-6 md:py-0 md:px-10">
-                  <p className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] leading-none tracking-[-0.04em] mb-2">{s.value}</p>
-                  <p className="text-[14px] font-semibold text-[#1D1D1F] mb-1">{s.label}</p>
-                  <p className="text-[12.5px] text-[#6E6E73]">{s.sub}</p>
-                </div>
-              </FadeUp>
-            ))}
+              {/* Inline stats */}
+              <motion.div
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.07]">
+                {STATS.map((s, i) => (
+                  <motion.div key={s.label}
+                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.42 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}>
+                    <p className="text-[clamp(22px,2.4vw,30px)] font-black text-white leading-none tracking-[-0.03em] mb-1">{s.value}</p>
+                    <p className="text-[11px] font-medium text-white/40">{s.label}</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* ── Right: floating dashboard ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 56, y: 16 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="hidden lg:flex items-center justify-center relative">
+              {/* blue ambient glow */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-[#0071E3]/[0.07] rounded-full blur-3xl pointer-events-none" />
+              <div className="w-full max-w-[580px] relative"
+                   style={{
+                     transform: 'perspective(1200px) rotateY(-5deg) rotateX(2deg)',
+                     boxShadow: '0 60px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)',
+                   }}>
+                <DashboardMockup compact />
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -710,9 +759,12 @@ export default function MarketingPage() {
             </div>
           </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {APPS.map((app, i) => (
-              <FadeUp key={app.id} delay={i * 0.08}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {APPS.map((app, i) => {
+              // Admin (0) and Events (3) get wide treatment; Teacher (1) and Parent (2) stay narrow
+              const wide = i === 0 || i === 3;
+              return (
+              <FadeUp key={app.id} delay={i * 0.08} className={wide ? 'md:col-span-2' : 'md:col-span-1'}>
                 <motion.div
                   whileHover={{ y: -4, scale: 1.01 }}
                   transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -757,7 +809,8 @@ export default function MarketingPage() {
                   </div>
                 </motion.div>
               </FadeUp>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1172,21 +1225,28 @@ export default function MarketingPage() {
         />
       </section>
 
-      {/* ── Testimonials — LayeredStack ─────────────────────────────────────── */}
-      <section id="testimonials" className="py-28 bg-[#F5F5F7]">
-        <div className="max-w-[1080px] mx-auto px-5">
-          <FadeUp>
-            <div className="text-center mb-16">
-              <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em]">Loved by schools.</h2>
-              <p className="text-[15px] text-[#6E6E73] mt-3 max-w-sm mx-auto leading-relaxed">
-                Hover the cards below to spread them out.
-              </p>
-            </div>
-          </FadeUp>
-          <div className="flex justify-center">
-            <LayeredStack className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full" style={{ minHeight: 320 }}>
-              {TESTIMONIALS.map(t => <TestimonialCard key={t.name} {...t} />)}
-            </LayeredStack>
+      {/* ── Testimonials — auto-scroll marquee ──────────────────────────── */}
+      <section id="testimonials" className="py-28 bg-[#F5F5F7] overflow-hidden">
+        <FadeUp>
+          <div className="max-w-[1080px] mx-auto px-5 mb-12">
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em]">
+              Loved by schools.
+            </h2>
+            <p className="text-[15px] text-[#6E6E73] mt-3 leading-relaxed">
+              Real results from schools already on EduFee.
+            </p>
+          </div>
+        </FadeUp>
+        {/* Marquee track — 4× duplication for seamless loop */}
+        <div className="relative">
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10"
+               style={{ background: 'linear-gradient(to right, #F5F5F7, transparent)' }} />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10"
+               style={{ background: 'linear-gradient(to left, #F5F5F7, transparent)' }} />
+          <div className="flex gap-5 marquee-track" style={{ width: 'max-content' }}>
+            {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+              <TestimonialCard key={i} {...t} />
+            ))}
           </div>
         </div>
       </section>
@@ -1297,11 +1357,13 @@ export default function MarketingPage() {
               Join 50+ schools already on EduFee. All four apps set up in one afternoon.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link className="bg-[#0071E3] text-white text-[15px] font-semibold px-9 py-3.5 rounded-full
-                               hover:bg-[#0077ED] transition-colors active:scale-[0.97]
-                               shadow-[0_4px_28px_rgba(0,113,227,0.45)]">
-                Get started free
-              </Link>
+              <MagneticButton>
+                <Link className="bg-[#0071E3] text-white text-[15px] font-semibold px-9 py-3.5 rounded-full
+                                 hover:bg-[#0077ED] transition-colors active:scale-[0.97]
+                                 shadow-[0_4px_28px_rgba(0,113,227,0.45)] inline-block">
+                  Get started free
+                </Link>
+              </MagneticButton>
               <a href="mailto:support@edufee.in"
                  className="flex items-center gap-1.5 text-[15px] font-medium text-white/50 hover:text-white/80 transition-colors">
                 Contact sales <ArrowRight size={14} strokeWidth={2.2} />
