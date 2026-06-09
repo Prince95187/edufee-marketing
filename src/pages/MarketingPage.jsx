@@ -610,31 +610,31 @@ export default function MarketingPage() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/92 backdrop-blur-2xl border-b border-black/[0.07] shadow-[0_1px_0_rgba(0,0,0,0.04)]'
-          : 'bg-[#0A0E1A]/60 backdrop-blur-md'
+          : 'bg-white/70 backdrop-blur-md border-b border-black/[0.05]'
       }`} style={{ height: 52 }}>
         <div className="max-w-[1080px] mx-auto h-full px-5 flex items-center justify-between gap-8">
           <a href="/" className="flex items-center gap-2 flex-shrink-0">
             <div className="w-7 h-7 bg-[#0071E3] rounded-[8px] flex items-center justify-center">
               <GraduationCap size={14} className="text-white" strokeWidth={2} />
             </div>
-            <span className={`text-[15px] font-bold tracking-[-0.025em] transition-colors duration-300 ${scrolled ? 'text-[#1D1D1F]' : 'text-white'}`}>EduFee</span>
+            <span className="text-[15px] font-bold tracking-[-0.025em] text-[#1D1D1F]">EduFee</span>
           </a>
           <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
             {NAV_LINKS.map(link => (
               <a key={link.label} href={link.href}
-                 className={`text-[13px] font-medium transition-colors duration-150 ${scrolled ? 'text-[#6E6E73] hover:text-[#1D1D1F]' : 'text-white/65 hover:text-white'}`}>
+                 className="text-[13px] font-medium text-[#6E6E73] hover:text-[#1D1D1F] transition-colors duration-150">
                 {link.label}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Link className={`hidden md:block text-[13px] font-medium transition-colors ${scrolled ? 'text-[#1D1D1F] hover:text-[#0071E3]' : 'text-white/70 hover:text-white'}`}>
+            <Link className="hidden md:block text-[13px] font-medium text-[#1D1D1F] hover:text-[#0071E3] transition-colors">
               Sign in
             </Link>
-            <Link className={`text-[13px] font-semibold px-4 py-[7px] rounded-full active:scale-[0.96] transition-all ${scrolled ? 'bg-[#0071E3] text-white hover:bg-[#0077ED] shadow-sm' : 'bg-white text-[#0A0E1A] hover:bg-white/90 shadow-sm'}`}>
+            <Link className="text-[13px] font-semibold px-4 py-[7px] rounded-full active:scale-[0.96] transition-all bg-[#0071E3] text-white hover:bg-[#0077ED] shadow-sm">
               Get started
             </Link>
-            <button className={`md:hidden p-1.5 -mr-1 ${scrolled ? 'text-[#1D1D1F]' : 'text-white'}`} onClick={() => setMobileOpen(v => !v)}>
+            <button className="md:hidden p-1.5 -mr-1 text-[#1D1D1F]" onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={1.8} />}
             </button>
           </div>
@@ -659,84 +659,66 @@ export default function MarketingPage() {
         </AnimatePresence>
       </header>
 
-      {/* ── Hero — asymmetric split ───────────────────────────────────────── */}
-      <section className="min-h-[100dvh] bg-[#0A0E1A] overflow-hidden flex flex-col justify-center pt-[52px]">
-        <div className="max-w-[1200px] mx-auto px-5 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-[52%_48%] gap-8 xl:gap-16 items-center py-16 lg:py-20">
-
-            {/* ── Left: text ── */}
-            <div>
+      {/* ── Hero — ContainerScroll ──────────────────────────────────────────── */}
+      <section className="pt-[52px] overflow-hidden"
+               style={{ background: 'linear-gradient(180deg, #EFF4FF 0%, #ffffff 55%)' }}>
+        <ContainerScroll
+          titleComponent={
+            <div className="text-center px-5 pb-8">
               <motion.p
-                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="flex items-center gap-2 text-[11px] font-semibold text-white/30 tracking-[0.1em] mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0071E3] flex-shrink-0" />
+                className="flex items-center justify-center gap-2 text-[12px] font-semibold text-[#0071E3]/70 tracking-[0.08em] mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#0071E3]" />
                 50+ schools · Telangana &amp; Andhra Pradesh
               </motion.p>
-
               <motion.h1
-                initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[clamp(52px,7vw,88px)] font-black text-white leading-[0.96] tracking-[-0.04em] mb-6"
+                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[clamp(52px,8vw,88px)] font-black text-[#1D1D1F] leading-[0.97] tracking-[-0.04em] mb-6"
                 style={{ textWrap: 'balance' }}>
                 School fees,<br />simplified.
               </motion.h1>
-
               <motion.p
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.13, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[17px] text-white/45 leading-[1.7] max-w-[430px] mb-10">
+                transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[17px] md:text-[18px] text-[#6E6E73] leading-[1.65] max-w-[520px] mx-auto mb-10">
                 Collect fees, track attendance, and keep parents informed.
                 One platform, four apps, built for Indian schools.
               </motion.p>
-
               <motion.div
                 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.21, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-wrap items-center gap-4 mb-14">
+                transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-wrap items-center justify-center gap-4">
                 <MagneticButton>
-                  <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[14px] font-semibold px-7 py-3.5 rounded-full transition-colors active:scale-[0.97] shadow-[0_4px_28px_rgba(0,113,227,0.45)] inline-block">
+                  <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all active:scale-[0.97] shadow-[0_4px_24px_rgba(0,113,227,0.35)] inline-block">
                     Start free — all 4 apps
                   </Link>
                 </MagneticButton>
-                <a href="#apps" className="flex items-center gap-1.5 text-[13px] font-medium text-white/45 hover:text-white/70 transition-colors">
-                  See how it works <ArrowRight size={12} strokeWidth={2} />
+                <a href="#apps" className="flex items-center gap-1.5 text-[14px] font-medium text-[#0071E3] hover:text-[#0077ED] transition-colors">
+                  Explore the apps <ArrowRight size={13} strokeWidth={2.2} />
                 </a>
               </motion.div>
-
-              {/* Inline stats */}
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
-                className="grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.07]">
-                {STATS.map((s, i) => (
-                  <motion.div key={s.label}
-                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.42 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}>
-                    <p className="text-[clamp(22px,2.4vw,30px)] font-black text-white leading-none tracking-[-0.03em] mb-1">{s.value}</p>
-                    <p className="text-[11px] font-medium text-white/40">{s.label}</p>
-                  </motion.div>
-                ))}
-              </motion.div>
             </div>
+          }
+        >
+          <DashboardMockup compact />
+        </ContainerScroll>
+      </section>
 
-            {/* ── Right: floating dashboard ── */}
-            <motion.div
-              initial={{ opacity: 0, x: 56, y: 16 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.95, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:flex items-center justify-center relative">
-              {/* blue ambient glow */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-[#0071E3]/[0.07] rounded-full blur-3xl pointer-events-none" />
-              <div className="w-full max-w-[580px] relative"
-                   style={{
-                     transform: 'perspective(1200px) rotateY(-5deg) rotateX(2deg)',
-                     boxShadow: '0 60px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)',
-                   }}>
-                <DashboardMockup compact />
-              </div>
-            </motion.div>
-
+      {/* ── Stats strip ────────────────────────────────────────────────────── */}
+      <section className="py-20 bg-white border-b border-black/[0.06]">
+        <div className="max-w-[860px] mx-auto px-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-black/[0.07]">
+            {STATS.map((s, i) => (
+              <FadeUp key={s.label} delay={i * 0.07}>
+                <div className="text-center py-6 md:py-0 md:px-10">
+                  <p className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] leading-none tracking-[-0.04em] mb-2">{s.value}</p>
+                  <p className="text-[14px] font-semibold text-[#1D1D1F] mb-1">{s.label}</p>
+                  <p className="text-[12.5px] text-[#6E6E73]">{s.sub}</p>
+                </div>
+              </FadeUp>
+            ))}
           </div>
         </div>
       </section>
