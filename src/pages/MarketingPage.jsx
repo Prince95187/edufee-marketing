@@ -579,36 +579,38 @@ export default function MarketingPage() {
   const currentApp = APPS[activeApp];
 
   return (
-    <div style={{ fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" }}
+    <div style={{ fontFamily: "'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" }}
          className="antialiased text-[#1D1D1F] bg-white overflow-x-hidden">
 
       {/* ── Navbar ─────────────────────────────────────────────────────────── */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
-                          ${scrolled ? 'bg-white/90 backdrop-blur-2xl border-b border-black/[0.06]' : 'bg-white/70 backdrop-blur-xl'}`}
-              style={{ height: 52 }}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/92 backdrop-blur-2xl border-b border-black/[0.07] shadow-[0_1px_0_rgba(0,0,0,0.04)]'
+          : 'bg-[#0A0E1A]/60 backdrop-blur-md'
+      }`} style={{ height: 52 }}>
         <div className="max-w-[1080px] mx-auto h-full px-5 flex items-center justify-between gap-8">
           <a href="/" className="flex items-center gap-2 flex-shrink-0">
             <div className="w-7 h-7 bg-[#0071E3] rounded-[8px] flex items-center justify-center">
               <GraduationCap size={14} className="text-white" strokeWidth={2} />
             </div>
-            <span className="text-[15px] font-bold text-[#1D1D1F] tracking-[-0.025em]">EduFee</span>
+            <span className={`text-[15px] font-bold tracking-[-0.025em] transition-colors duration-300 ${scrolled ? 'text-[#1D1D1F]' : 'text-white'}`}>EduFee</span>
           </a>
           <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
             {NAV_LINKS.map(link => (
               <a key={link.label} href={link.href}
-                 className="text-[13px] font-medium text-[#6E6E73] hover:text-[#1D1D1F] transition-colors duration-150">
+                 className={`text-[13px] font-medium transition-colors duration-150 ${scrolled ? 'text-[#6E6E73] hover:text-[#1D1D1F]' : 'text-white/65 hover:text-white'}`}>
                 {link.label}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Link className="hidden md:block text-[13px] font-medium text-[#1D1D1F] hover:text-[#0071E3] transition-colors">
+            <Link className={`hidden md:block text-[13px] font-medium transition-colors ${scrolled ? 'text-[#1D1D1F] hover:text-[#0071E3]' : 'text-white/70 hover:text-white'}`}>
               Sign in
             </Link>
-            <Link className="text-[13px] font-semibold bg-[#0071E3] text-white px-4 py-[7px] rounded-full hover:bg-[#0077ED] active:scale-[0.96] transition-all shadow-sm">
+            <Link className={`text-[13px] font-semibold px-4 py-[7px] rounded-full active:scale-[0.96] transition-all ${scrolled ? 'bg-[#0071E3] text-white hover:bg-[#0077ED] shadow-sm' : 'bg-white text-[#0A0E1A] hover:bg-white/90 shadow-sm'}`}>
               Get started
             </Link>
-            <button className="md:hidden p-1.5 -mr-1" onClick={() => setMobileOpen(v => !v)}>
+            <button className={`md:hidden p-1.5 -mr-1 ${scrolled ? 'text-[#1D1D1F]' : 'text-white'}`} onClick={() => setMobileOpen(v => !v)}>
               {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={1.8} />}
             </button>
           </div>
@@ -634,35 +636,36 @@ export default function MarketingPage() {
       </header>
 
       {/* ── Hero — ContainerScroll ──────────────────────────────────────────── */}
-      <section className="pt-[52px] bg-white overflow-hidden">
+      <section className="pt-[52px] bg-[#0A0E1A] overflow-hidden">
         <ContainerScroll
           titleComponent={
             <div className="text-center px-5 pb-8">
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100/80 text-[#0071E3] text-[11.5px] font-semibold px-3.5 py-1.5 rounded-full mb-8">
-                <span className="w-1.5 h-1.5 bg-[#0071E3] rounded-full" />
-                Trusted by 50+ schools across India
-              </motion.div>
-              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[56px] md:text-[76px] font-bold text-[#1D1D1F] leading-[1.03] tracking-[-0.04em] mb-5">
+              <motion.p
+                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[12px] font-semibold text-white/40 uppercase tracking-[0.18em] mb-7">
+                50+ schools · Telangana &amp; Andhra Pradesh
+              </motion.p>
+              <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[clamp(52px,8vw,96px)] font-black text-white leading-[1.0] tracking-[-0.04em] mb-6"
+                style={{ textWrap: 'balance' }}>
                 School fees,<br />simplified.
               </motion.h1>
               <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[17px] md:text-[19px] text-[#6E6E73] leading-[1.6] max-w-[560px] mx-auto mb-10">
-                Collect fees, track attendance, and keep parents informed —
-                all from one clean platform built for Indian schools.
+                transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className="text-[17px] md:text-[18px] text-white/50 leading-[1.65] max-w-[520px] mx-auto mb-10">
+                Collect fees, track attendance, and keep parents informed.
+                One platform. Four apps. Built for Indian schools.
               </motion.p>
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-wrap items-center justify-center gap-4">
-                <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[15px] font-semibold px-8 py-3 rounded-full transition-all active:scale-[0.97] shadow-[0_4px_24px_rgba(0,113,227,0.32)]">
-                  Get started free
+                <Link className="bg-[#0071E3] hover:bg-[#0077ED] text-white text-[15px] font-semibold px-8 py-3.5 rounded-full transition-all active:scale-[0.97] shadow-[0_4px_28px_rgba(0,113,227,0.45)]">
+                  Start free — all 4 apps
                 </Link>
-                <a href="#apps" className="flex items-center gap-1.5 text-[15px] font-medium text-[#0071E3] hover:underline underline-offset-2">
-                  Explore the apps <ArrowRight size={14} strokeWidth={2.2} />
+                <a href="#apps" className="flex items-center gap-1.5 text-[14px] font-medium text-white/50 hover:text-white/80 transition-colors">
+                  See how it works <ArrowRight size={13} strokeWidth={2} />
                 </a>
               </motion.div>
             </div>
@@ -673,20 +676,15 @@ export default function MarketingPage() {
       </section>
 
       {/* ── Stats strip ────────────────────────────────────────────────────── */}
-      <section className="py-20 bg-[#F5F5F7]">
+      <section className="py-20 bg-white border-b border-black/[0.06]">
         <div className="max-w-[860px] mx-auto px-5">
-          <FadeUp>
-            <p className="text-center text-[11px] font-bold text-[#6E6E73] uppercase tracking-[0.14em] mb-12">
-              Powering schools across Telangana &amp; Andhra Pradesh
-            </p>
-          </FadeUp>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-black/[0.07]">
             {STATS.map((s, i) => (
-              <FadeUp key={s.label} delay={i * 0.06}>
+              <FadeUp key={s.label} delay={i * 0.07}>
                 <div className="text-center py-6 md:py-0 md:px-10">
-                  <p className="text-[46px] font-bold text-[#1D1D1F] leading-none tracking-[-0.04em] mb-2.5">{s.value}</p>
-                  <p className="text-[15px] font-semibold text-[#1D1D1F] mb-1">{s.label}</p>
-                  <p className="text-[13px] text-[#6E6E73]">{s.sub}</p>
+                  <p className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] leading-none tracking-[-0.04em] mb-2">{s.value}</p>
+                  <p className="text-[14px] font-semibold text-[#1D1D1F] mb-1">{s.label}</p>
+                  <p className="text-[12.5px] text-[#6E6E73]">{s.sub}</p>
                 </div>
               </FadeUp>
             ))}
@@ -702,16 +700,12 @@ export default function MarketingPage() {
 
           <FadeUp>
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 bg-white/[0.07] border border-white/[0.1] text-white/60
-                              text-[11px] font-semibold px-3.5 py-1.5 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                The EduFee Suite
-              </div>
-              <h2 className="text-[48px] md:text-[60px] font-bold text-white tracking-[-0.04em] leading-[1.04] mb-5">
+              <h2 className="text-[clamp(44px,6vw,72px)] font-black text-white tracking-[-0.04em] leading-[1.02] mb-5"
+                  style={{ textWrap: 'balance' }}>
                 Four apps.<br />One school system.
               </h2>
-              <p className="text-[16px] text-white/45 leading-relaxed max-w-lg mx-auto">
-                Every role in your school gets a purpose-built experience — admin, teacher, parent, and coordinator.
+              <p className="text-[16px] text-white/45 leading-relaxed max-w-[480px] mx-auto">
+                Admin, teacher, parent, and coordinator — each gets a purpose-built experience, included in one plan.
               </p>
             </div>
           </FadeUp>
@@ -776,12 +770,12 @@ export default function MarketingPage() {
 
           <FadeUp>
             <div className="text-center mb-14">
-              <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.14em] mb-3">Deep Dive</p>
-              <h2 className="text-[44px] font-bold text-[#1D1D1F] tracking-[-0.035em]">
+              <h2 className="text-[clamp(38px,5vw,60px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.05] mb-4"
+                  style={{ textWrap: 'balance' }}>
                 Explore each app.
               </h2>
-              <p className="text-[16px] text-[#6E6E73] mt-3 max-w-md mx-auto leading-relaxed">
-                Click any app to see exactly what it does and how it looks.
+              <p className="text-[16px] text-[#6E6E73] max-w-[400px] mx-auto leading-relaxed">
+                Click any app to see exactly what it does and how it looks in practice.
               </p>
             </div>
           </FadeUp>
@@ -926,12 +920,14 @@ export default function MarketingPage() {
         <div className="max-w-[1080px] mx-auto px-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn from="left">
-              <div className="inline-flex items-center gap-2 bg-blue-100 text-[#0071E3] text-[11px] font-bold
-                              px-3 py-1.5 rounded-full mb-6 uppercase tracking-[0.1em]">
-                <Monitor size={12} strokeWidth={2} />
-                Admin Dashboard
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-blue-100">
+                  <Monitor size={14} className="text-[#0071E3]" strokeWidth={1.8} />
+                </div>
+                <span className="text-[13px] font-semibold text-[#0071E3]">Admin Dashboard</span>
               </div>
-              <h2 className="text-[40px] font-bold text-[#1D1D1F] tracking-[-0.035em] leading-tight mb-5">
+              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
+                  style={{ textWrap: 'balance' }}>
                 Your entire school,<br />at a single glance.
               </h2>
               <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
@@ -982,12 +978,15 @@ export default function MarketingPage() {
             </FadeIn>
             {/* Text — right */}
             <FadeIn from="right">
-              <div className="inline-flex items-center gap-2 bg-green-900/40 text-[#34C759] text-[11px] font-bold
-                              px-3 py-1.5 rounded-full mb-6 uppercase tracking-[0.1em] border border-green-500/20">
-                <Smartphone size={12} strokeWidth={2} />
-                Teacher App
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center"
+                     style={{ background: 'rgba(52,199,89,0.18)' }}>
+                  <Smartphone size={14} strokeWidth={1.8} style={{ color: '#34C759' }} />
+                </div>
+                <span className="text-[13px] font-semibold" style={{ color: '#34C759' }}>Teacher App</span>
               </div>
-              <h2 className="text-[40px] font-bold text-white tracking-[-0.035em] leading-tight mb-5">
+              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-white tracking-[-0.04em] leading-[1.06] mb-5"
+                  style={{ textWrap: 'balance' }}>
                 Attendance done<br />in under a minute.
               </h2>
               <p className="text-[15px] text-white/45 leading-relaxed mb-8">
@@ -1027,12 +1026,14 @@ export default function MarketingPage() {
         <div className="max-w-[1080px] mx-auto px-5">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn from="left">
-              <div className="inline-flex items-center gap-2 bg-amber-50 text-[#FF9F0A] text-[11px] font-bold
-                              px-3 py-1.5 rounded-full mb-6 uppercase tracking-[0.1em] border border-amber-200/60">
-                <Smartphone size={12} strokeWidth={2} />
-                Parent Portal
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-amber-50">
+                  <Smartphone size={14} strokeWidth={1.8} className="text-[#FF9F0A]" />
+                </div>
+                <span className="text-[13px] font-semibold text-[#FF9F0A]">Parent Portal</span>
               </div>
-              <h2 className="text-[40px] font-bold text-[#1D1D1F] tracking-[-0.035em] leading-tight mb-5">
+              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
+                  style={{ textWrap: 'balance' }}>
                 Pay fees from<br />the sofa.
               </h2>
               <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
@@ -1083,12 +1084,14 @@ export default function MarketingPage() {
             </FadeIn>
             {/* Text right */}
             <FadeIn from="right">
-              <div className="inline-flex items-center gap-2 bg-purple-50 text-[#AF52DE] text-[11px] font-bold
-                              px-3 py-1.5 rounded-full mb-6 uppercase tracking-[0.1em] border border-purple-200/60">
-                <Calendar size={12} strokeWidth={2} />
-                Event Management
+              <div className="flex items-center gap-2 mb-5">
+                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-purple-50">
+                  <Calendar size={14} strokeWidth={1.8} className="text-[#AF52DE]" />
+                </div>
+                <span className="text-[13px] font-semibold text-[#AF52DE]">Event Management</span>
               </div>
-              <h2 className="text-[40px] font-bold text-[#1D1D1F] tracking-[-0.035em] leading-tight mb-5">
+              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
+                  style={{ textWrap: 'balance' }}>
                 Every school event,<br />perfectly organised.
               </h2>
               <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
@@ -1149,8 +1152,8 @@ export default function MarketingPage() {
       <section id="showcase" className="bg-white overflow-hidden">
         <div className="max-w-[1080px] mx-auto px-5 pt-20">
           <FadeUp>
-            <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.14em] mb-4">The Platform</p>
-            <h2 className="text-[48px] md:text-[58px] font-bold text-[#1D1D1F] tracking-[-0.04em] leading-[1.04] mb-4 max-w-2xl">
+            <h2 className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.04] mb-4 max-w-2xl"
+                style={{ textWrap: 'balance' }}>
               Built for Indian schools.<br />Designed for everyone.
             </h2>
             <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-xl">
@@ -1174,8 +1177,7 @@ export default function MarketingPage() {
         <div className="max-w-[1080px] mx-auto px-5">
           <FadeUp>
             <div className="text-center mb-16">
-              <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.14em] mb-3">Testimonials</p>
-              <h2 className="text-[44px] font-bold text-[#1D1D1F] tracking-[-0.035em]">Loved by schools.</h2>
+              <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em]">Loved by schools.</h2>
               <p className="text-[15px] text-[#6E6E73] mt-3 max-w-sm mx-auto leading-relaxed">
                 Hover the cards below to spread them out.
               </p>
@@ -1194,8 +1196,8 @@ export default function MarketingPage() {
         <div className="max-w-[1080px] mx-auto px-5">
           <FadeUp>
             <div className="text-center mb-16">
-              <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.14em] mb-3">Why EduFee</p>
-              <h2 className="text-[44px] font-bold text-[#1D1D1F] tracking-[-0.035em]">
+              <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em]"
+                  style={{ textWrap: 'balance' }}>
                 Built right, from the ground up.
               </h2>
             </div>
@@ -1230,8 +1232,7 @@ export default function MarketingPage() {
       <section id="pricing" className="py-28 bg-[#F5F5F7]">
         <div className="max-w-[900px] mx-auto px-5 text-center">
           <FadeUp>
-            <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.14em] mb-3">Pricing</p>
-            <h2 className="text-[44px] font-bold text-[#1D1D1F] tracking-[-0.035em] mb-4">Simple, honest pricing.</h2>
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em] mb-4">Simple, honest pricing.</h2>
             <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-md mx-auto mb-3">
               One plan. All four apps. Your entire school covered.
             </p>
@@ -1248,7 +1249,7 @@ export default function MarketingPage() {
 
             <div className="inline-block bg-white rounded-[28px] border border-black/[0.06] p-10 text-left
                             shadow-[0_8px_40px_rgba(0,0,0,0.07)] max-w-sm w-full">
-              <p className="text-[11px] font-bold text-[#0071E3] uppercase tracking-[0.1em] mb-4">School Plan — All Apps Included</p>
+              <p className="text-[12px] font-semibold text-[#0071E3] mb-4">School Plan · All Apps Included</p>
               <div className="flex items-end gap-1 mb-1">
                 <span className="text-[52px] font-bold text-[#1D1D1F] leading-none tracking-[-0.04em]">₹999</span>
                 <span className="text-[15px] text-[#6E6E73] mb-2.5">/month</span>
@@ -1285,22 +1286,24 @@ export default function MarketingPage() {
       </section>
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
-      <section className="py-36 bg-[#0071E3]">
+      <section className="py-36 bg-[#0A0E1A]">
         <div className="max-w-[680px] mx-auto px-5 text-center">
           <FadeUp>
-            <h2 className="text-[48px] md:text-[58px] font-bold text-white tracking-[-0.04em] leading-[1.04] mb-5">
+            <h2 className="text-[clamp(40px,6vw,72px)] font-black text-white tracking-[-0.04em] leading-[1.02] mb-5"
+                style={{ textWrap: 'balance' }}>
               Ready to simplify<br />your school?
             </h2>
-            <p className="text-[17px] text-white/70 leading-relaxed mb-10">
-              Join 50+ schools already on EduFee. All four apps — admin, teacher, parent, and events — set up in minutes.
+            <p className="text-[17px] text-white/50 leading-relaxed mb-10 max-w-md mx-auto">
+              Join 50+ schools already on EduFee. All four apps set up in one afternoon.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link className="bg-white text-[#0071E3] text-[15px] font-semibold px-9 py-3.5 rounded-full
-                               hover:bg-blue-50 transition-colors active:scale-[0.97] shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
+              <Link className="bg-[#0071E3] text-white text-[15px] font-semibold px-9 py-3.5 rounded-full
+                               hover:bg-[#0077ED] transition-colors active:scale-[0.97]
+                               shadow-[0_4px_28px_rgba(0,113,227,0.45)]">
                 Get started free
               </Link>
               <a href="mailto:support@edufee.in"
-                 className="flex items-center gap-1.5 text-[15px] font-medium text-white/80 hover:text-white transition-colors">
+                 className="flex items-center gap-1.5 text-[15px] font-medium text-white/50 hover:text-white/80 transition-colors">
                 Contact sales <ArrowRight size={14} strokeWidth={2.2} />
               </a>
             </div>
