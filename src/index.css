@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Surfaces */
+  --bg-base:        #F2F4F7;
+  --bg-card:        #FFFFFF;
+  --bg-overlay:     rgba(255,255,255,0.85);
+
+  /* Sidebar */
+  --sb-bg:          #0D0D18;
+  --sb-border:      rgba(255,255,255,0.055);
+  --sb-hover:       rgba(255,255,255,0.055);
+  --sb-active-bg:   rgba(96,165,250,0.13);
+  --sb-active-border: #60A5FA;
+
+  /* Text */
+  --text-900:  #0A0E1A;
+  --text-700:  #374151;
+  --text-500:  #6B7280;
+  --text-400:  #9CA3AF;
+
+  /* Accent */
+  --accent:       #3B82F6;
+  --accent-light: rgba(59,130,246,0.12);
+
+  /* Borders & Shadows */
+  --border-subtle: rgba(0,0,0,0.07);
+  --border-soft:   rgba(0,0,0,0.11);
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-md:  0 2px 8px rgba(0,0,0,0.06), 0 6px 20px rgba(0,0,0,0.05);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Easing — Emil Kowalski approach */
+  --ease-spring:   cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-smooth:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back:     cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:      cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-900);
+    line-height: 1.5;
+  }
+
+  /* Tailwind v3 — fine-grained scrollbar */
+  ::-webkit-scrollbar       { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.13);
+    border-radius: 99px;
+    transition: background 150ms ease;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.22); }
+
+  /* Sidebar scrollbar — lighter on dark bg */
+  .sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position: 200% center; }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(59,130,246,0.35); }
+  70%  { box-shadow: 0 0 0 6px rgba(59,130,246,0); }
+  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+}
+
+@keyframes spin-smooth {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes number-reveal {
+  from { opacity: 0; transform: translateY(6px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fade-up     { animation: fade-up 0.35s var(--ease-smooth) forwards; }
+.animate-fade-in     { animation: fade-in 0.25s var(--ease-out) forwards; }
+.animate-slide-left  { animation: slide-in-left 0.25s var(--ease-smooth) forwards; }
+.animate-number      { animation: number-reveal 0.4s var(--ease-back) both; }
+
+/* Stagger helpers — set --stagger-i on each child */
+.stagger-children > * {
+  animation: fade-up 0.35s var(--ease-smooth) both;
+  animation-delay: calc(var(--i, 0) * 55ms);
+}
+
+/* ── Page transition wrapper ────────────────────────────────────────────── */
+.page-enter {
+  animation: fade-up 0.3s var(--ease-smooth) both;
+}
+
+/* ── Component layer ────────────────────────────────────────────────────── */
+@layer components {
+
+  /* Buttons ──────────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-blue-500 text-white
+           px-4 py-2.5 rounded-xl
+           text-sm font-semibold
+           transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
+           disabled:opacity-40 disabled:cursor-not-allowed;
+    box-shadow: 0 1px 3px rgba(59,130,246,0.35), 0 0 0 1px rgba(59,130,246,0.2);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover { background-color: #2563EB; box-shadow: 0 2px 8px rgba(59,130,246,0.45); }
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+    transition-duration: 80ms;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           bg-white text-slate-700 border border-slate-200
+           px-4 py-2.5 rounded-xl
+           text-sm font-semibold
+           transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-1
+           disabled:opacity-40;
+    box-shadow: var(--shadow-sm);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-secondary:hover { background-color: #F8FAFC; border-color: #CBD5E1; }
+  }
+  .btn-secondary:active {
+    transform: scale(0.97);
+    transition-duration: 80ms;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2
+           bg-red-500 text-white
+           px-4 py-2.5 rounded-xl
+           text-sm font-semibold
+           transition-all duration-150
+           disabled:opacity-40;
+    box-shadow: 0 1px 3px rgba(239,68,68,0.3);
+  }
+  .btn-danger:active { transform: scale(0.97); transition-duration: 80ms; }
+
+  /* Inputs ───────────────────────────────────────────────────────────────── */
+  .input {
+    @apply w-full border border-slate-200 bg-white
+           rounded-xl px-3.5 py-2.5
+           text-sm text-slate-900
+           placeholder-slate-400
+           outline-none
+           transition-all duration-150;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .input:focus {
+    border-color: #60A5FA;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.12), 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .input:hover:not(:focus) { border-color: #CBD5E1; }
+
+  /* Cards ────────────────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-2xl p-6;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+  }
+  .card-interactive {
+    @apply card cursor-pointer;
+    transition: transform 150ms var(--ease-smooth), box-shadow 150ms var(--ease-smooth);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .card-interactive:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  .card-interactive:active {
+    transform: scale(0.99) translateY(0);
+    transition-duration: 80ms;
+  }
+
+  /* Badges ───────────────────────────────────────────────────────────────── */
+  .badge-paid    { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60; }
+  .badge-pending { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50  text-amber-700  border border-amber-200/60; }
+  .badge-overdue { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50    text-red-700    border border-red-200/60; }
+  .badge-partial { @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-200/60; }
+
+  /* Label ────────────────────────────────────────────────────────────────── */
+  .label-sm {
+    @apply block text-[11px] font-bold text-slate-400 mb-1.5 uppercase tracking-widest;
+  }
+
+  /* Shimmer skeleton ─────────────────────────────────────────────────────── */
+  .skeleton {
+    background: linear-gradient(90deg, #F1F3F5 25%, #E9ECEF 50%, #F1F3F5 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 8px;
+  }
+
+  /* Mono numbers ─────────────────────────────────────────────────────────── */
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+}
+
+/* ── Reduced-motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .skeleton {
+    animation: none;
+    background: #E9ECEF;
+  }
+}
+
+/* ── Hover guard (touch devices) ────────────────────────────────────────────── */
+/* Tailwind hover: variants fire on tap+hold on touch screens and stay stuck.
+   Gate all lift/shadow hovers behind a real pointer device. */
+@media not all and (hover: hover) {
+  .hover\:-translate-y-\[2px\]:hover,
+  .hover\:-translate-y-0\.5:hover {
+    transform: none !important;
+  }
+  .hover\:shadow-md:hover,
+  .hover\:shadow-\[0_4px_20px_rgba\(0\,0\,0\,0\.09\)\]:hover {
+    box-shadow: none !important;
+  }
+}
