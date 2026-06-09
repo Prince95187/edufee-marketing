@@ -800,7 +800,7 @@ export default function MarketingPage() {
       {/* ══════════════════════════════════════════════════════════════════════
           INTERACTIVE APP DEEP DIVE — tab switcher
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-white overflow-hidden">
+      <section id="features" className="py-28 bg-white overflow-hidden">
         <div className="max-w-[1100px] mx-auto px-5">
 
           <FadeUp>
@@ -948,215 +948,6 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          ADMIN APP — full deep dive
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#F5F5F7] overflow-hidden" id="features">
-        <div className="max-w-[1080px] mx-auto px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <FadeIn from="left">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-blue-100">
-                  <Monitor size={14} className="text-[#0071E3]" strokeWidth={1.8} />
-                </div>
-                <span className="text-[13px] font-semibold text-[#0071E3]">Admin Dashboard</span>
-              </div>
-              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
-                  style={{ textWrap: 'balance' }}>
-                Your entire school,<br />at a single glance.
-              </h2>
-              <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
-                Principals and admins get a real-time overview of every student, every rupee, and every attendance record — all from one powerful web dashboard.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { Icon: IndianRupee, title: 'Live fee collection tracker',     color: '#0071E3' },
-                  { Icon: BarChart3,   title: 'Monthly & annual reports',        color: '#0071E3' },
-                  { Icon: Users,       title: 'Full student registry & profiles', color: '#0071E3' },
-                  { Icon: Zap,         title: 'AI assistant for instant answers', color: '#0071E3' },
-                  { Icon: Building2,   title: 'Multi-school account switching',  color: '#0071E3' },
-                ].map((item, i) => (
-                  <motion.div key={item.title}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-[9px] flex items-center justify-center flex-shrink-0">
-                      <item.Icon size={15} className="text-[#0071E3]" strokeWidth={2} />
-                    </div>
-                    <span className="text-[14px] font-medium text-[#1D1D1F]">{item.title}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </FadeIn>
-            <FadeIn from="right" delay={0.1}>
-              <div style={{ boxShadow: '0 40px 100px rgba(0,113,227,0.1)' }}>
-                <DashboardMockup />
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          TEACHER APP — full deep dive
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#1D1D1F] overflow-hidden">
-        <div className="max-w-[1080px] mx-auto px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Phone — left on desktop */}
-            <FadeIn from="left" delay={0.1} className="flex justify-center lg:justify-start">
-              <div style={{ filter: 'drop-shadow(0 50px 90px rgba(52,199,89,0.25))' }}>
-                <PhoneMockup accent="#34C759"><TeacherScreen /></PhoneMockup>
-              </div>
-            </FadeIn>
-            {/* Text — right */}
-            <FadeIn from="right">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center"
-                     style={{ background: 'rgba(52,199,89,0.18)' }}>
-                  <Smartphone size={14} strokeWidth={1.8} style={{ color: '#34C759' }} />
-                </div>
-                <span className="text-[13px] font-semibold" style={{ color: '#34C759' }}>Teacher App</span>
-              </div>
-              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-white tracking-[-0.04em] leading-[1.06] mb-5"
-                  style={{ textWrap: 'balance' }}>
-                Attendance done<br />in under a minute.
-              </h2>
-              <p className="text-[15px] text-white/45 leading-relaxed mb-8">
-                Teachers open the app, select their class, tap P or A for each student, and hit save. That's it. Parents are instantly notified of absences.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { Icon: CalendarCheck, title: 'Mark P / A / Late per student'       },
-                  { Icon: Users,         title: 'Switch between any assigned class'    },
-                  { Icon: MessageSquare, title: 'Auto-SMS parents on absence'          },
-                  { Icon: Clock,         title: 'Backdate attendance for missed days'  },
-                  { Icon: Shield,        title: 'Works offline — syncs when reconnected' },
-                ].map((item, i) => (
-                  <motion.div key={item.title}
-                    initial={{ opacity: 0, x: 16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-[9px] flex items-center justify-center flex-shrink-0"
-                         style={{ background: 'rgba(52,199,89,0.15)' }}>
-                      <item.Icon size={15} className="text-[#34C759]" strokeWidth={2} />
-                    </div>
-                    <span className="text-[14px] font-medium text-white/70">{item.title}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          PARENT APP — full deep dive
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-white overflow-hidden">
-        <div className="max-w-[1080px] mx-auto px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <FadeIn from="left">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-amber-50">
-                  <Smartphone size={14} strokeWidth={1.8} className="text-[#FF9F0A]" />
-                </div>
-                <span className="text-[13px] font-semibold text-[#FF9F0A]">Parent Portal</span>
-              </div>
-              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
-                  style={{ textWrap: 'balance' }}>
-                Pay fees from<br />the sofa.
-              </h2>
-              <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
-                Parents see their child's complete fee breakdown, pay online in seconds, and get an instant receipt — without ever visiting the school office.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { Icon: CreditCard,    title: 'Secure online fee payment'           },
-                  { Icon: IndianRupee,   title: 'Full fee breakdown by category'      },
-                  { Icon: FileText,      title: 'Instant downloadable receipts'       },
-                  { Icon: Bell,          title: 'Due date SMS reminders'              },
-                  { Icon: CalendarCheck, title: 'View child\'s attendance anytime'   },
-                ].map((item, i) => (
-                  <motion.div key={item.title}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-amber-50 rounded-[9px] flex items-center justify-center flex-shrink-0">
-                      <item.Icon size={15} className="text-[#FF9F0A]" strokeWidth={2} />
-                    </div>
-                    <span className="text-[14px] font-medium text-[#1D1D1F]">{item.title}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </FadeIn>
-            <FadeIn from="right" delay={0.1} className="flex justify-center">
-              <div style={{ filter: 'drop-shadow(0 50px 90px rgba(255,159,10,0.22))' }}>
-                <PhoneMockup accent="#FF9F0A"><ParentScreen /></PhoneMockup>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          EVENT MANAGEMENT — full deep dive
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-28 bg-[#F5F5F7] overflow-hidden">
-        <div className="max-w-[1080px] mx-auto px-5">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Phone left */}
-            <FadeIn from="left" delay={0.1} className="flex justify-center lg:justify-start">
-              <div style={{ filter: 'drop-shadow(0 50px 90px rgba(175,82,222,0.22))' }}>
-                <PhoneMockup accent="#AF52DE"><EventsScreen /></PhoneMockup>
-              </div>
-            </FadeIn>
-            {/* Text right */}
-            <FadeIn from="right">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-[9px] flex items-center justify-center bg-purple-50">
-                  <Calendar size={14} strokeWidth={1.8} className="text-[#AF52DE]" />
-                </div>
-                <span className="text-[13px] font-semibold text-[#AF52DE]">Event Management</span>
-              </div>
-              <h2 className="text-[clamp(34px,4vw,48px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.06] mb-5"
-                  style={{ textWrap: 'balance' }}>
-                Every school event,<br />perfectly organised.
-              </h2>
-              <p className="text-[15px] text-[#6E6E73] leading-relaxed mb-8">
-                Plan sports days, parent-teacher meetings, exam schedules, and fee drives on a shared calendar — with task assignments and automated reminders.
-              </p>
-              <div className="space-y-4">
-                {[
-                  { Icon: Calendar,      title: 'Full academic year calendar'         },
-                  { Icon: ClipboardList, title: 'Staff task assignment & tracking'    },
-                  { Icon: Trophy,        title: 'Event creation & coordination'       },
-                  { Icon: Bell,          title: 'Auto reminders to staff & parents'   },
-                  { Icon: MapPin,        title: 'Venue & resource booking'            },
-                ].map((item, i) => (
-                  <motion.div key={item.title}
-                    initial={{ opacity: 0, x: 16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-purple-50 rounded-[9px] flex items-center justify-center flex-shrink-0">
-                      <item.Icon size={15} className="text-[#AF52DE]" strokeWidth={2} />
-                    </div>
-                    <span className="text-[14px] font-medium text-[#1D1D1F]">{item.title}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
 
       {/* ── SVG Mask tagline ────────────────────────────────────────────────── */}
       <MaskContainer
@@ -1183,28 +974,25 @@ export default function MarketingPage() {
         </div>
       </MaskContainer>
 
-      {/* ── MacbookScroll showcase ──────────────────────────────────────────── */}
-      <section id="showcase" className="bg-white overflow-hidden">
-        <div className="max-w-[1080px] mx-auto px-5 pt-20">
+      {/* ── Dashboard showcase ───────────────────────────────────────────── */}
+      <section id="showcase" className="py-24 bg-white overflow-hidden">
+        <div className="max-w-[1080px] mx-auto px-5">
           <FadeUp>
             <h2 className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.04] mb-4 max-w-2xl"
                 style={{ textWrap: 'balance' }}>
               Built for Indian schools.<br />Designed for everyone.
             </h2>
-            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-xl">
+            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-xl mb-14">
               From the principal's financial overview to the teacher's daily roll call — EduFee works for every role, beautifully.
             </p>
           </FadeUp>
+          <FadeUp delay={0.1}>
+            <div className="rounded-[20px] overflow-hidden"
+                 style={{ boxShadow: '0 40px 120px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.06)' }}>
+              <DashboardMockup />
+            </div>
+          </FadeUp>
         </div>
-        <MacbookScroll
-          src="/esjhs-campus-desktop.jpg"
-          showGradient
-          title={
-            <span className="text-[#1D1D1F] text-3xl font-bold tracking-[-0.03em]">
-              Your school, powered by EduFee
-            </span>
-          }
-        />
       </section>
 
       {/* ── Testimonials — auto-scroll marquee ──────────────────────────── */}
@@ -1233,37 +1021,35 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      {/* ── Feature highlights — 3D Pin ─────────────────────────────────────── */}
-      <section className="py-28 bg-white">
+      {/* ── Feature highlights ────────────────────────────────────────────── */}
+      <section className="py-24 bg-[#F5F5F7]">
         <div className="max-w-[1080px] mx-auto px-5">
           <FadeUp>
-            <div className="text-center mb-16">
-              <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em]"
-                  style={{ textWrap: 'balance' }}>
-                Built right, from the ground up.
-              </h2>
-            </div>
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em] mb-14"
+                style={{ textWrap: 'balance' }}>
+              Built right, from the ground up.
+            </h2>
           </FadeUp>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { Icon: Shield,      color: '#0071E3', title: 'Secure & private',  desc: 'Your data stays on your server. No third-party access, ever.'         },
-              { Icon: Zap,         color: '#FF9F0A', title: 'Lightning fast',    desc: 'Built on modern infrastructure. Every action feels instant.'           },
-              { Icon: BarChart3,   color: '#34C759', title: 'Detailed reports',  desc: 'Export fee collection and attendance reports in one click.'             },
-              { Icon: CheckCircle, color: '#FF3B30', title: 'Always up to date', desc: 'Updates roll out silently. Nothing to install, ever.'                  },
+              { Icon: Shield,      color: '#0071E3', bg: '#EFF4FF', title: 'Secure & private',   desc: 'Your data stays on your server. No third-party access, ever.'        },
+              { Icon: Zap,         color: '#FF9F0A', bg: '#FFF8EE', title: 'Lightning fast',      desc: 'Built on modern infrastructure. Every action responds instantly.'     },
+              { Icon: BarChart3,   color: '#34C759', bg: '#EDFCF2', title: 'Detailed reports',    desc: 'Export fee collection and attendance reports in one click to PDF.'    },
+              { Icon: CheckCircle, color: '#FF3B30', bg: '#FFF0EE', title: 'Always up to date',   desc: 'Updates roll out silently. Nothing to install, nothing to manage.'    },
             ].map((f, i) => (
               <FadeUp key={f.title} delay={i * 0.07}>
-                <PinContainer title={f.title} href="#features" containerClassName="cursor-pointer">
-                  <div className="flex flex-col gap-4 p-5 w-[240px] h-[200px]">
-                    <div className="w-10 h-10 rounded-[10px] flex items-center justify-center flex-shrink-0"
-                         style={{ backgroundColor: f.color + '20' }}>
-                      <f.Icon size={18} style={{ color: f.color }} strokeWidth={1.8} />
-                    </div>
-                    <div>
-                      <p className="text-white text-[15px] font-bold tracking-[-0.02em] mb-2">{f.title}</p>
-                      <p className="text-slate-400 text-[12.5px] leading-relaxed">{f.desc}</p>
-                    </div>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-white rounded-[20px] p-8 border border-black/[0.05]"
+                  style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                  <div className="w-11 h-11 rounded-[12px] flex items-center justify-center mb-5 flex-shrink-0"
+                       style={{ backgroundColor: f.bg }}>
+                    <f.Icon size={20} style={{ color: f.color }} strokeWidth={1.8} />
                   </div>
-                </PinContainer>
+                  <p className="text-[17px] font-bold text-[#1D1D1F] tracking-[-0.02em] mb-2">{f.title}</p>
+                  <p className="text-[14px] text-[#6E6E73] leading-relaxed">{f.desc}</p>
+                </motion.div>
               </FadeUp>
             ))}
           </div>
@@ -1271,58 +1057,127 @@ export default function MarketingPage() {
       </section>
 
       {/* ── Pricing ────────────────────────────────────────────────────────── */}
-      <section id="pricing" className="py-28 bg-[#F5F5F7]">
-        <div className="max-w-[900px] mx-auto px-5 text-center">
+      <section id="pricing" className="py-28 bg-white">
+        <div className="max-w-[1080px] mx-auto px-5">
           <FadeUp>
-            <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em] mb-4">Simple, honest pricing.</h2>
-            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-md mx-auto mb-3">
-              One plan. All four apps. Your entire school covered.
+            <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em] mb-3">Simple, honest pricing.</h2>
+            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-md mb-14">
+              All four apps included in every plan. Pay per student, scale as you grow.
             </p>
-            {/* All 4 apps included pill */}
-            <div className="flex flex-wrap justify-center gap-2 mb-12">
-              {APPS.map(app => (
-                <span key={app.id} className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold px-3 py-1 rounded-full border"
-                      style={{ color: app.color, borderColor: app.color + '40', background: app.color + '0D' }}>
-                  <app.icon size={11} strokeWidth={2} />
-                  {app.name}
-                </span>
-              ))}
-            </div>
+          </FadeUp>
 
-            <div className="inline-block bg-white rounded-[28px] border border-black/[0.06] p-10 text-left
-                            shadow-[0_8px_40px_rgba(0,0,0,0.07)] max-w-sm w-full">
-              <p className="text-[12px] font-semibold text-[#0071E3] mb-4">School Plan · All Apps Included</p>
-              <div className="flex items-end gap-1 mb-1">
-                <span className="text-[52px] font-bold text-[#1D1D1F] leading-none tracking-[-0.04em]">₹999</span>
-                <span className="text-[15px] text-[#6E6E73] mb-2.5">/month</span>
-              </div>
-              <p className="text-[13px] text-[#6E6E73] mb-8">Billed annually. Unlimited students, unlimited staff.</p>
-              <div className="space-y-3 mb-8">
-                {[
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                name: 'Starter',
+                price: '₹499',
+                perStudent: '₹3.33',
+                limit: 'Up to 150 students',
+                desc: 'Perfect for small schools getting started with digital fee management.',
+                features: [
                   'Admin Dashboard (web)',
                   'Teacher App (mobile + web)',
                   'Parent Portal (mobile + web)',
+                  'Fee collection & receipts',
+                  'Attendance tracking',
+                  'Basic monthly reports',
+                  'Email support',
+                ],
+                cta: 'Start free trial',
+                highlight: false,
+              },
+              {
+                name: 'Growth',
+                price: '₹999',
+                perStudent: '₹2.00',
+                limit: 'Up to 500 students',
+                desc: 'The most popular plan for established schools with multiple classes.',
+                features: [
+                  'Everything in Starter',
                   'Event Management App',
-                  'Unlimited students & classes',
                   'SMS parent notifications',
-                  'Monthly & annual reports',
                   'AI fee assistant',
-                  'Multi-school support',
-                  'Dedicated onboarding',
-                ].map(f => (
-                  <div key={f} className="flex items-center gap-2.5">
-                    <CheckCircle size={15} className="text-[#34C759] flex-shrink-0" strokeWidth={2} />
-                    <span className="text-[13.5px] text-[#1D1D1F]">{f}</span>
+                  'Monthly & annual reports',
+                  'Multi-class management',
+                  'Priority support',
+                ],
+                cta: 'Start free trial',
+                highlight: true,
+              },
+              {
+                name: 'Scale',
+                price: '₹2,499',
+                perStudent: '₹1.25',
+                limit: 'Up to 2,000 students',
+                desc: 'For large schools and multi-branch institutions needing full control.',
+                features: [
+                  'Everything in Growth',
+                  'Multi-school account switching',
+                  'Dedicated onboarding manager',
+                  'Custom fee structures',
+                  'Advanced audit reports',
+                  'API access',
+                  'SLA-backed support',
+                ],
+                cta: 'Contact us',
+                highlight: false,
+              },
+            ].map((plan, i) => (
+              <FadeUp key={plan.name} delay={i * 0.08}>
+                <div className={`rounded-[24px] p-8 h-full flex flex-col relative ${
+                  plan.highlight
+                    ? 'bg-[#0071E3] text-white'
+                    : 'bg-white border border-black/[0.07]'
+                }`}
+                style={plan.highlight
+                  ? { boxShadow: '0 16px 48px rgba(0,113,227,0.28)' }
+                  : { boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }
+                }>
+                  {plan.highlight && (
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D1D1F] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-[0.06em]">
+                      MOST POPULAR
+                    </span>
+                  )}
+                  <div className="mb-6">
+                    <p className={`text-[13px] font-semibold mb-4 ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>{plan.name}</p>
+                    <div className="flex items-end gap-1.5 mb-1">
+                      <span className={`text-[48px] font-black leading-none tracking-[-0.04em] ${plan.highlight ? 'text-white' : 'text-[#1D1D1F]'}`}>{plan.price}</span>
+                      <span className={`text-[14px] mb-2 ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>/month</span>
+                    </div>
+                    <div className={`flex items-center gap-1.5 text-[12px] font-semibold mb-3 ${plan.highlight ? 'text-white/70' : 'text-[#0071E3]'}`}>
+                      <IndianRupee size={11} strokeWidth={2.5} />
+                      {plan.perStudent}/student/month · {plan.limit}
+                    </div>
+                    <p className={`text-[13px] leading-relaxed ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>{plan.desc}</p>
                   </div>
-                ))}
-              </div>
-              <Link className="block w-full bg-[#0071E3] text-white text-[14px] font-semibold text-center
-                               py-3.5 rounded-full hover:bg-[#0077ED] transition-colors active:scale-[0.97]
-                               shadow-[0_4px_16px_rgba(0,113,227,0.28)]">
-                Start free trial — all apps
-              </Link>
-              <p className="text-[11.5px] text-[#6E6E73] text-center mt-3">30 days free · No credit card needed</p>
-            </div>
+
+                  <div className="space-y-2.5 mb-8 flex-1">
+                    {plan.features.map(f => (
+                      <div key={f} className="flex items-start gap-2.5">
+                        <CheckCircle size={14} className={`flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-white/70' : 'text-[#34C759]'}`} strokeWidth={2} />
+                        <span className={`text-[13px] ${plan.highlight ? 'text-white/80' : 'text-[#1D1D1F]'}`}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link className={`block w-full text-[14px] font-semibold text-center py-3.5 rounded-full transition-colors active:scale-[0.97] ${
+                    plan.highlight
+                      ? 'bg-white text-[#0071E3] hover:bg-blue-50 shadow-[0_4px_12px_rgba(0,0,0,0.12)]'
+                      : 'bg-[#0071E3] text-white hover:bg-[#0077ED] shadow-[0_4px_16px_rgba(0,113,227,0.28)]'
+                  }`}>
+                    {plan.cta}
+                  </Link>
+                  {plan.highlight && (
+                    <p className="text-[11px] text-white/50 text-center mt-3">30 days free · No credit card needed</p>
+                  )}
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp delay={0.2}>
+            <p className="text-center text-[13px] text-[#6E6E73] mt-8">
+              All prices billed annually. Monthly billing available at +20%. GST extra.
+            </p>
           </FadeUp>
         </div>
       </section>
