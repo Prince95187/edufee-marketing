@@ -7,7 +7,7 @@ import {
   Shield, Zap, Calendar, ClipboardList, CreditCard,
   BookOpen, Trophy, MapPin, Smartphone, Monitor,
   ChevronRight, Play, TrendingUp, FileText, Settings,
-  UserCheck, AlertCircle, Wallet,
+  UserCheck, AlertCircle, Wallet, Tag, Percent,
 } from 'lucide-react';
 
 // ── Aceternity UI components ──────────────────────────────────────────────────
@@ -110,104 +110,552 @@ function PhoneMockup({ children, accent = '#0071E3' }) {
 
 // ── Admin Dashboard mockup ────────────────────────────────────────────────────
 function DashboardMockup({ compact = false }) {
-  const statItems = [
-    { label: 'Students', value: '212',       color: 'bg-blue-500',  Icon: Users        },
-    { label: 'Collected',value: '₹44.6K',    color: 'bg-green-500', Icon: IndianRupee  },
-    { label: 'Pending',  value: '₹1.01 Cr',  color: 'bg-amber-500', Icon: Clock        },
-    { label: 'Present',  value: '198',        color: 'bg-teal-500',  Icon: CalendarCheck},
+  const navSections = [
+    {
+      label: null,
+      items: [{ Icon: BarChart3, label: 'Dashboard', active: true }],
+    },
+    {
+      label: 'ACADEMIC',
+      items: [
+        { Icon: Users,        label: 'Students'   },
+        { Icon: CalendarCheck,label: 'Attendance' },
+        { Icon: BookOpen,     label: 'Academics'  },
+        { Icon: Calendar,     label: 'Calendar'   },
+      ],
+    },
+    {
+      label: 'FINANCE',
+      items: [
+        { Icon: Wallet,    label: 'Fee Management' },
+        { Icon: CreditCard,label: 'Payments'       },
+        { Icon: FileText,  label: 'Accounts'       },
+      ],
+    },
+    {
+      label: 'RESOURCES',
+      items: [
+        { Icon: BookOpen,     label: 'Books'  },
+        { Icon: ClipboardList,label: 'Tasks'  },
+      ],
+    },
+    {
+      label: 'INSIGHTS',
+      items: [
+        { Icon: BarChart3,label: 'Reports'      },
+        { Icon: Zap,      label: 'AI Assistant' },
+      ],
+    },
   ];
-  const bars = [
-    { month: 'Jan', h: 45 }, { month: 'Feb', h: 68 }, { month: 'Mar', h: 55 },
-    { month: 'Apr', h: 80 }, { month: 'May', h: 62 }, { month: 'Jun', h: 90 },
+
+  const stats = [
+    { label: 'Total Students',  sub: 'Active enrollments',    value: '239',          Icon: Users,        bg: 'bg-blue-500'  },
+    { label: 'Total Collected', sub: 'This academic year',    value: '₹14,52,350',   Icon: IndianRupee,  bg: 'bg-green-500' },
+    { label: 'Pending Fees',    sub: 'Awaiting payment',      value: '₹98,40,750',   Icon: Clock,        bg: 'bg-amber-500' },
+    { label: 'Overdue',         sub: '0 assignments',         value: '₹0',           Icon: AlertCircle,  bg: 'bg-red-400'   },
   ];
-  const payments = [
-    { name: 'Arjun K.',  amount: '₹4,800', status: 'paid'    },
-    { name: 'Priya R.',  amount: '₹3,200', status: 'paid'    },
-    { name: 'Ravi S.',   amount: '₹2,400', status: 'pending' },
-    { name: 'Anita M.',  amount: '₹1,800', status: 'paid'    },
-  ];
+
   return (
-    <div className="select-none w-full h-full">
-      <div className="rounded-[16px] overflow-hidden h-full"
-           style={{ boxShadow: compact ? 'none' : '0 48px 120px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.06)' }}>
-        <div className="h-9 bg-[#EBEBEB] flex items-center px-4 gap-3 border-b border-black/[0.07]">
-          <div className="flex gap-[5px]">
-            <div className="w-[10px] h-[10px] rounded-full bg-[#FF5F57]" />
-            <div className="w-[10px] h-[10px] rounded-full bg-[#FEBC2E]" />
-            <div className="w-[10px] h-[10px] rounded-full bg-[#28C840]" />
-          </div>
-          <div className="flex-1 flex justify-center">
-            <div className="w-52 h-5 bg-white rounded-[5px] border border-black/10 flex items-center justify-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-              <span className="text-[8px] text-gray-400 font-medium">app.edufee.in/dashboard</span>
-            </div>
+    <div className="select-none w-full h-full flex flex-col bg-[#F2F4F7]">
+
+      {/* ── Browser chrome ─────────────────────────────────────────────── */}
+      <div className="h-8 bg-[#EBEBEB] flex items-center px-3 gap-2.5 border-b border-black/[0.08] flex-shrink-0">
+        <div className="flex gap-[5px]">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <div className="w-60 h-5 bg-white rounded-[5px] border border-black/[0.09] flex items-center justify-center gap-1.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0" />
+            <span className="text-[7.5px] text-gray-400 font-medium tracking-tight">edufee.up.railway.app/dashboard</span>
           </div>
         </div>
-        <div className="flex bg-[#F2F4F7]" style={{ height: compact ? 'calc(100% - 36px)' : '400px' }}>
-          <div className="w-[160px] bg-[#0D0D18] flex flex-col py-3 px-2 flex-shrink-0">
-            <div className="flex items-center gap-1.5 px-2 pb-3 mb-2 border-b border-white/[0.07]">
-              <div className="w-5 h-5 bg-[#0071E3] rounded-[5px] flex items-center justify-center">
-                <GraduationCap size={10} className="text-white" strokeWidth={2} />
+      </div>
+
+      {/* ── App body ───────────────────────────────────────────────────── */}
+      <div className="flex flex-1 overflow-hidden">
+
+        {/* Sidebar */}
+        <div className="w-[148px] bg-[#0D0D18] flex flex-col flex-shrink-0 overflow-hidden">
+          {/* Logo + school selector */}
+          <div className="px-2.5 pt-2.5 pb-2 border-b border-white/[0.06]">
+            <div className="flex items-center gap-1.5 mb-2">
+              <div className="w-6 h-6 rounded-[7px] bg-[#1C1C2E] border border-white/[0.1] flex items-center justify-center flex-shrink-0">
+                <GraduationCap size={11} className="text-white" strokeWidth={2} />
               </div>
-              <span className="text-white text-[10px] font-bold">EduFee</span>
+              <div>
+                <p className="text-white text-[9px] font-bold leading-none">EduFee</p>
+                <p className="text-white/35 text-[6.5px] leading-none mt-[2px]">ESJHS Portal</p>
+              </div>
             </div>
-            {['Dashboard','Students','Attendance','Fee Mgmt','Payments','Reports','AI Assistant','Calendar'].map((label, i) => (
-              <div key={label} className={`flex items-center gap-1.5 px-2 py-[5px] rounded-[6px] text-[8.5px] font-medium mb-0.5
-                ${i === 0 ? 'bg-[#0071E3]/15 text-white' : 'text-white/30'}`}>
-                <div className={`w-[3px] h-[3px] rounded-full ${i === 0 ? 'bg-[#60A5FA]' : 'bg-transparent'}`} />
-                {label}
+            <div className="flex items-center justify-between bg-white/[0.06] rounded-[6px] px-2 py-[5px] border border-white/[0.07]">
+              <div className="flex items-center gap-1">
+                <Building2 size={7} className="text-white/35" />
+                <span className="text-white/60 text-[7.5px] font-medium">ESJHS</span>
+              </div>
+              <ChevronRight size={7} className="text-white/25 rotate-90" />
+            </div>
+          </div>
+
+          {/* Nav items */}
+          <div className="flex-1 overflow-hidden px-1.5 py-1.5">
+            {navSections.map((section, si) => (
+              <div key={si} className={si > 0 ? 'mt-1.5' : ''}>
+                {section.label && (
+                  <p className="text-[6px] font-bold text-white/20 tracking-[0.1em] px-1.5 mb-0.5">{section.label}</p>
+                )}
+                {section.items.map(item => (
+                  <div key={item.label} className={`flex items-center gap-1.5 px-1.5 py-[3.5px] rounded-[5px] mb-[1px]
+                    ${item.active
+                      ? 'bg-[#0071E3]/20 border-l-[2px] border-[#3B82F6] pl-[4px]'
+                      : ''}`}>
+                    <item.Icon size={8} className={item.active ? 'text-[#60A5FA]' : 'text-white/28'} strokeWidth={2} />
+                    <span className={`text-[7.5px] font-medium ${item.active ? 'text-white' : 'text-white/35'}`}>{item.label}</span>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
-          <div className="flex-1 p-3 overflow-hidden">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <h3 className="text-[11px] font-bold text-slate-900">Dashboard</h3>
-                <p className="text-[7.5px] text-slate-400">Academic Year 2026-27 · ESJHS</p>
+
+          {/* User */}
+          <div className="px-2.5 py-2 border-t border-white/[0.06] flex items-center gap-1.5">
+            <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-[7px] font-bold">S</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-white text-[7.5px] font-semibold leading-none truncate">School Admin</p>
+              <p className="text-white/30 text-[6px] leading-none mt-[2px]">Admin</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main content */}
+        <div className="flex-1 overflow-hidden flex flex-col">
+
+          {/* Top bar */}
+          <div className="h-8 flex items-center justify-between px-3 bg-white border-b border-black/[0.05] flex-shrink-0">
+            <div className="flex items-center gap-1 text-[7.5px] text-[#8E8E93]">
+              <span>EduFee</span>
+              <ChevronRight size={7} />
+              <span className="text-[#1D1D1F] font-semibold">Dashboard</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Bell size={11} className="text-[#8E8E93]" strokeWidth={1.5} />
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full border border-white" />
               </div>
-              <div className="w-6 h-6 bg-[#0071E3] rounded-full flex items-center justify-center">
-                <span className="text-white text-[8px] font-bold">S</span>
+              <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-[7px] font-bold">S</span>
               </div>
             </div>
-            <div className="grid grid-cols-4 gap-1.5 mb-2.5">
-              {statItems.map(s => (
-                <div key={s.label} className="bg-white rounded-[8px] p-2 border border-black/[0.05]">
-                  <div className={`${s.color} rounded-[4px] mb-1.5 flex items-center justify-center`} style={{width:16,height:16}}>
-                    <s.Icon size={7} className="text-white" strokeWidth={2} />
+          </div>
+
+          {/* Page content */}
+          <div className="flex-1 overflow-hidden px-3 py-2.5 space-y-2.5">
+
+            {/* Header card */}
+            <div className="bg-white rounded-[10px] px-3 py-2.5 border border-black/[0.05] relative overflow-hidden flex-shrink-0"
+                 style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
+              <div className="absolute right-0 top-0 w-28 h-full bg-gradient-to-l from-blue-100/60 to-transparent rounded-r-[10px]" />
+              <div className="relative flex items-center gap-2">
+                <div className="w-7 h-7 bg-[#0071E3] rounded-[8px] flex items-center justify-center flex-shrink-0">
+                  <TrendingUp size={12} className="text-white" strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-[11px] font-bold text-[#1D1D1F] leading-none">Dashboard</h3>
+                  <p className="text-[6.5px] text-[#8E8E93] mt-0.5 leading-none">Academic Year 2026-27 — Emmanuel Sugnana Jyothi High School</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4 stat cards */}
+            <div className="grid grid-cols-4 gap-2 flex-shrink-0">
+              {stats.map(s => (
+                <div key={s.label} className="bg-white rounded-[9px] p-2 border border-black/[0.05] relative"
+                     style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+                  <ChevronRight size={7} className="text-slate-200 absolute top-1.5 right-1.5" />
+                  <div className={`${s.bg} w-5 h-5 rounded-[5px] flex items-center justify-center mb-1.5`}>
+                    <s.Icon size={9} className="text-white" strokeWidth={2} />
                   </div>
-                  <p className="text-[10px] font-bold text-slate-900 leading-none">{s.value}</p>
-                  <p className="text-[6px] text-slate-400 mt-0.5">{s.label}</p>
+                  <p className="text-[10px] font-black text-[#1D1D1F] leading-none tracking-tight">{s.value}</p>
+                  <p className="text-[6.5px] font-semibold text-[#1D1D1F] leading-tight mt-[2px]">{s.label}</p>
+                  <p className="text-[5.5px] text-[#8E8E93] leading-tight">{s.sub}</p>
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-5 gap-2">
-              <div className="col-span-3 bg-white rounded-[8px] p-2.5 border border-black/[0.05]">
-                <p className="text-[7px] font-bold text-slate-700 mb-1.5">Monthly Collection</p>
-                <div className="flex items-end gap-1 h-[60px]">
-                  {bars.map((bar, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-0.5">
-                      <div className="w-full rounded-t-[2px]" style={{ height: `${bar.h}%`, background: i === 5 ? '#0071E3' : '#BFDBFE' }} />
-                      <span className="text-[5px] text-slate-400">{bar.month}</span>
-                    </div>
-                  ))}
-                </div>
+
+            {/* School Financial Overview */}
+            <div className="flex-shrink-0">
+              <div className="flex items-center gap-2 mb-1.5">
+                <p className="text-[8px] font-bold text-[#1D1D1F]">School Financial Overview</p>
+                <span className="bg-[#EFF4FF] text-[#0071E3] text-[5.5px] font-bold px-1.5 py-[2px] rounded-full tracking-wide">ADMIN ONLY</span>
               </div>
-              <div className="col-span-2 bg-white rounded-[8px] p-2.5 border border-black/[0.05]">
-                <p className="text-[7px] font-bold text-slate-700 mb-1.5">Recent Payments</p>
-                <div className="space-y-1.5">
-                  {payments.map((p, i) => (
-                    <div key={i} className="flex items-center justify-between">
-                      <span className="text-[7px] text-slate-700">{p.name}</span>
-                      <span className={`text-[6px] font-bold px-1 py-0.5 rounded-full ${p.status === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>{p.status}</span>
-                    </div>
-                  ))}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-[#1C1C2E] rounded-[9px] p-2.5 border border-white/[0.06]">
+                  <div className="w-5 h-5 bg-white/10 rounded-[5px] flex items-center justify-center mb-1.5">
+                    <TrendingUp size={8} className="text-white/60" strokeWidth={2} />
+                  </div>
+                  <p className="text-[9.5px] font-black text-white leading-none tracking-tight">₹1,12,93,100</p>
+                  <p className="text-[6px] font-semibold text-white/60 mt-[3px] leading-tight">Applicable Fees</p>
+                  <p className="text-[5.5px] text-white/35 leading-tight">Total after all discounts</p>
+                </div>
+                <div className="rounded-[9px] p-2.5" style={{ background: 'linear-gradient(135deg,#1C1C2E 0%,#2D1B69 100%)' }}>
+                  <div className="w-5 h-5 bg-white/10 rounded-[5px] flex items-center justify-center mb-1.5">
+                    <Tag size={8} className="text-white/60" strokeWidth={2} />
+                  </div>
+                  <p className="text-[9.5px] font-black text-white leading-none tracking-tight">₹1,05,300</p>
+                  <p className="text-[6px] font-semibold text-white/60 mt-[3px] leading-tight">Total Discount</p>
+                  <p className="text-[5.5px] text-white/35 leading-tight">RTE / Hostel / Free</p>
+                </div>
+                <div className="bg-[#1C1C2E] rounded-[9px] p-2.5 border border-white/[0.06]">
+                  <div className="w-5 h-5 bg-white/10 rounded-[5px] flex items-center justify-center mb-1.5">
+                    <Percent size={8} className="text-white/60" strokeWidth={2} />
+                  </div>
+                  <p className="text-[9.5px] font-black text-white leading-none tracking-tight">10</p>
+                  <p className="text-[6px] font-semibold text-white/60 mt-[3px] leading-tight">Discounted Students</p>
+                  <p className="text-[5.5px] text-[#60A5FA] leading-tight">View concession details →</p>
                 </div>
               </div>
             </div>
+
+            {/* Students by status */}
+            <div className="bg-white rounded-[9px] px-2.5 py-2 border border-black/[0.05] flex-shrink-0">
+              <div className="flex items-center flex-wrap gap-1 mb-1">
+                <p className="text-[7.5px] font-semibold text-[#1D1D1F]">Students by status:</p>
+                {[
+                  { l: 'Regular  235', c: 'bg-blue-100 text-blue-700'   },
+                  { l: 'RTE  2',       c: 'bg-green-100 text-green-700' },
+                  { l: 'Hostel  1',    c: 'bg-purple-100 text-purple-700'},
+                  { l: 'Free  1',      c: 'bg-amber-100 text-amber-700' },
+                ].map(p => (
+                  <span key={p.l} className={`text-[6px] font-bold px-1.5 py-[2px] rounded-full ${p.c}`}>{p.l}</span>
+                ))}
+              </div>
+              <p className="text-[5.5px] text-[#8E8E93]">+ Click any status to see the full student list with fee details</p>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+// ── Admin app shell (shared browser chrome + mini sidebar) ────────────────────
+function AdminAppShell({ route = 'dashboard', children }) {
+  const sidebarItems = [
+    { id: 'dashboard', Icon: BarChart3,  label: 'Dashboard' },
+    { id: 'students',  Icon: Users,      label: 'Students'  },
+    { id: 'fees',      Icon: CreditCard, label: 'Fees'      },
+    { id: 'reports',   Icon: BarChart3,  label: 'Reports'   },
+    { id: 'schools',   Icon: Building2,  label: 'Schools'   },
+    { id: 'ai',        Icon: Zap,        label: 'AI'        },
+  ];
+  return (
+    <div className="select-none w-full rounded-[16px] overflow-hidden"
+         style={{ boxShadow: '0 40px 100px rgba(0,113,227,0.10)' }}>
+      {/* Browser chrome */}
+      <div className="h-8 bg-[#EBEBEB] flex items-center px-3 gap-2.5 border-b border-black/[0.08]">
+        <div className="flex gap-[5px]">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <div className="w-64 h-5 bg-white rounded-[5px] border border-black/[0.09] flex items-center justify-center gap-1.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+            <span className="text-[7.5px] text-gray-400 font-medium">
+              edufee.up.railway.app/{route}
+            </span>
+          </div>
+        </div>
+      </div>
+      {/* App body */}
+      <div className="flex" style={{ height: 400 }}>
+        {/* Mini sidebar */}
+        <div className="w-[100px] bg-[#0D0D18] flex flex-col flex-shrink-0">
+          <div className="px-2.5 pt-2 pb-1.5 border-b border-white/[0.06] flex items-center gap-1.5">
+            <div className="w-4 h-4 rounded-[4px] bg-white/10 flex items-center justify-center">
+              <GraduationCap size={8} className="text-white" strokeWidth={2} />
+            </div>
+            <p className="text-white text-[7.5px] font-bold">EduFee</p>
+          </div>
+          <div className="px-1.5 py-1.5 flex-1">
+            {sidebarItems.map(item => (
+              <div key={item.id} className={`flex items-center gap-1.5 px-1.5 py-[3.5px] rounded-[4px] mb-[1px]
+                ${item.id === route ? 'bg-[#0071E3]/20 border-l-[2px] border-[#3B82F6] pl-[4px]' : ''}`}>
+                <item.Icon size={7} className={item.id === route ? 'text-[#60A5FA]' : 'text-white/30'} strokeWidth={2} />
+                <span className={`text-[6.5px] font-medium ${item.id === route ? 'text-white' : 'text-white/35'}`}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Content */}
+        <div className="flex-1 bg-[#F2F4F7] overflow-hidden">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Admin feature sub-views ────────────────────────────────────────────────────
+function FeeManagementMockup() {
+  const rows = [
+    { student: 'Arjun Kumar',  cls: '8A', cat: 'Term 1 Fees', amount: '₹4,800', status: 'paid'    },
+    { student: 'Priya Reddy',  cls: '8A', cat: 'Lab Charges', amount: '₹800',   status: 'paid'    },
+    { student: 'Ravi Shankar', cls: '9B', cat: 'Term 1 Fees', amount: '₹4,800', status: 'pending' },
+    { student: 'Meena K.',     cls: '7C', cat: 'Books',       amount: '₹1,200', status: 'overdue' },
+    { student: 'Suresh T.',    cls: '9B', cat: 'Uniform',     amount: '₹650',   status: 'paid'    },
+  ];
+  return (
+    <AdminAppShell route="fees">
+      <div className="p-3 h-full overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <p className="text-[10px] font-bold text-[#1D1D1F]">Fee Management</p>
+            <p className="text-[6.5px] text-[#8E8E93]">239 students · 2026-27</p>
+          </div>
+          <button className="bg-[#0071E3] text-white text-[7.5px] font-bold px-2 py-1 rounded-full">+ Assign Fee</button>
+        </div>
+        <div className="grid grid-cols-3 gap-1.5 mb-2.5">
+          {[
+            { l: 'Applicable', v: '₹1.13 Cr', c: 'bg-[#1C1C2E] text-white'    },
+            { l: 'Collected',  v: '₹14.5L',   c: 'bg-green-50 text-green-700' },
+            { l: 'Pending',    v: '₹98.4L',   c: 'bg-amber-50 text-amber-700' },
+          ].map(s => (
+            <div key={s.l} className={`${s.c} rounded-[8px] p-2 text-center`}>
+              <p className="text-[9px] font-black">{s.v}</p>
+              <p className="text-[5.5px] font-semibold opacity-70">{s.l}</p>
+            </div>
+          ))}
+        </div>
+        <div className="bg-white rounded-[9px] border border-black/[0.05] flex-1 overflow-hidden">
+          <div className="grid px-2.5 py-1.5 bg-[#F8F8F8] border-b border-black/[0.04]"
+               style={{ gridTemplateColumns: '2fr 0.6fr 1.1fr 0.9fr 0.9fr' }}>
+            {['Student','Cls','Category','Amount','Status'].map(h => (
+              <p key={h} className="text-[5.5px] font-bold text-[#8E8E93] uppercase tracking-wide">{h}</p>
+            ))}
+          </div>
+          {rows.map((r, i) => (
+            <div key={i} className="grid px-2.5 py-[5px] border-b border-black/[0.03] last:border-0"
+                 style={{ gridTemplateColumns: '2fr 0.6fr 1.1fr 0.9fr 0.9fr' }}>
+              <p className="text-[7.5px] font-semibold text-[#1D1D1F] truncate">{r.student}</p>
+              <p className="text-[7px] text-[#8E8E93]">{r.cls}</p>
+              <p className="text-[7px] text-[#8E8E93] truncate">{r.cat}</p>
+              <p className="text-[7.5px] font-bold text-[#1D1D1F]">{r.amount}</p>
+              <span className={`text-[5.5px] font-bold px-1.5 py-[2px] rounded-full w-fit
+                ${r.status === 'paid' ? 'bg-emerald-100 text-emerald-700' :
+                  r.status === 'overdue' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-700'}`}>
+                {r.status}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </AdminAppShell>
+  );
+}
+
+function StudentsMockup() {
+  const students = [
+    { name: 'Arjun Kumar',  roll: 'ES-0231', cls: '8A', type: 'Regular', fee: 'paid',    color: 'bg-blue-500'    },
+    { name: 'Priya Reddy',  roll: 'ES-0232', cls: '8A', type: 'Regular', fee: 'paid',    color: 'bg-rose-500'    },
+    { name: 'Ravi Shankar', roll: 'ES-0159', cls: '9B', type: 'RTE',     fee: 'pending', color: 'bg-emerald-500' },
+    { name: 'Meena Kumari', roll: 'ES-0092', cls: '7C', type: 'Regular', fee: 'overdue', color: 'bg-amber-500'   },
+    { name: 'Anita Sharma', roll: 'ES-0304', cls: '9A', type: 'Hostel',  fee: 'paid',    color: 'bg-violet-500'  },
+  ];
+  return (
+    <AdminAppShell route="students">
+      <div className="p-3 h-full overflow-hidden flex flex-col">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="flex-1 bg-white rounded-[7px] border border-black/[0.07] px-2 py-1.5 flex items-center gap-1.5">
+            <Users size={8} className="text-[#8E8E93]" />
+            <span className="text-[7.5px] text-[#8E8E93]">Search students, roll no...</span>
+          </div>
+          <button className="bg-[#0071E3] text-white text-[7.5px] font-bold px-2.5 py-1.5 rounded-[7px]">+ Add</button>
+        </div>
+        <div className="flex gap-1.5 mb-2.5 flex-wrap">
+          {[
+            { l: '239 Total',   c: 'bg-white text-slate-700 border-black/[0.07]'     },
+            { l: 'Regular 225', c: 'bg-blue-100 text-blue-700 border-transparent'    },
+            { l: 'RTE 9',       c: 'bg-green-100 text-green-700 border-transparent'  },
+            { l: 'Free 5',      c: 'bg-amber-100 text-amber-700 border-transparent'  },
+          ].map(s => (
+            <span key={s.l} className={`${s.c} text-[6px] font-bold px-2 py-[3px] rounded-full border`}>{s.l}</span>
+          ))}
+        </div>
+        <div className="space-y-1.5 flex-1 overflow-hidden">
+          {students.map((s, i) => (
+            <div key={i} className="bg-white rounded-[9px] px-2.5 py-2 border border-black/[0.05] flex items-center gap-2">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-white text-[8px] font-bold ${s.color}`}>
+                {s.name[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[8.5px] font-bold text-[#1D1D1F] truncate">{s.name}</p>
+                <p className="text-[6.5px] text-[#8E8E93]">{s.roll} · Class {s.cls} · {s.type}</p>
+              </div>
+              <span className={`text-[5.5px] font-bold px-1.5 py-[2px] rounded-full flex-shrink-0
+                ${s.fee === 'paid' ? 'bg-emerald-100 text-emerald-700' :
+                  s.fee === 'overdue' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-700'}`}>
+                {s.fee}
+              </span>
+              <ChevronRight size={7} className="text-slate-200" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </AdminAppShell>
+  );
+}
+
+function ReportsMockup() {
+  const bars = [55, 72, 61, 85, 73, 91, 66, 83, 78, 90, 96, 100];
+  const types = [
+    { Icon: BarChart3,   name: 'Monthly Collection', date: 'May 2026',    ready: true  },
+    { Icon: FileText,    name: 'Annual Fee Summary',  date: 'FY 2025-26',  ready: true  },
+    { Icon: AlertCircle, name: 'Defaulter List',      date: 'As of today', ready: false },
+    { Icon: Users,       name: 'Class-wise Dues',     date: 'June 2026',   ready: false },
+  ];
+  return (
+    <AdminAppShell route="reports">
+      <div className="p-3 h-full overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between mb-2.5">
+          <div>
+            <p className="text-[10px] font-bold text-[#1D1D1F]">Reports</p>
+            <p className="text-[6.5px] text-[#8E8E93]">Generate &amp; export to PDF</p>
+          </div>
+        </div>
+        <div className="space-y-1.5 mb-2.5">
+          {types.map((r, i) => (
+            <div key={i} className="bg-white rounded-[9px] px-2.5 py-2 border border-black/[0.05] flex items-center gap-2">
+              <div className="w-6 h-6 bg-[#EFF4FF] rounded-[6px] flex items-center justify-center flex-shrink-0">
+                <r.Icon size={10} className="text-[#0071E3]" strokeWidth={2} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[8px] font-bold text-[#1D1D1F]">{r.name}</p>
+                <p className="text-[6px] text-[#8E8E93]">{r.date}</p>
+              </div>
+              <button className={`text-[6px] font-bold px-2 py-[3px] rounded-full flex-shrink-0
+                ${r.ready ? 'bg-[#0071E3] text-white' : 'bg-[#F2F2F7] text-[#8E8E93]'}`}>
+                {r.ready ? 'Export PDF' : 'Generate'}
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="bg-white rounded-[9px] p-2.5 border border-black/[0.05] flex-1">
+          <div className="flex items-center justify-between mb-1.5">
+            <p className="text-[7.5px] font-bold text-[#1D1D1F]">Monthly Collection — 2026</p>
+            <span className="text-[5.5px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-[2px] rounded-full">Live</span>
+          </div>
+          <div className="flex items-end gap-[3px]" style={{ height: 52 }}>
+            {bars.map((h, i) => (
+              <div key={i} className="flex-1 rounded-t-[2px]"
+                   style={{ height: `${h}%`, background: i === 11 ? '#0071E3' : '#BFDBFE' }} />
+            ))}
+          </div>
+          <div className="flex justify-between mt-1">
+            {['J','F','M','A','M','J','J','A','S','O','N','D'].map(m => (
+              <span key={m} className="text-[5px] text-[#8E8E93] flex-1 text-center">{m}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AdminAppShell>
+  );
+}
+
+function MultiSchoolMockup() {
+  const schools = [
+    { name: 'Emmanuel Sugnana Jyothi High School', short: 'ESJHS', students: '239', collected: '₹14,52,350', active: true  },
+    { name: 'John F Kennedy High School',          short: 'JFK',   students: '312', collected: '₹18,75,200', active: false },
+  ];
+  return (
+    <AdminAppShell route="schools">
+      <div className="p-3 h-full overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-[10px] font-bold text-[#1D1D1F]">Schools</p>
+            <p className="text-[6.5px] text-[#8E8E93]">Switch between your schools</p>
+          </div>
+        </div>
+        <div className="space-y-2 flex-1">
+          {schools.map((sc, i) => (
+            <div key={i} className={`rounded-[10px] p-3 border ${sc.active ? 'bg-[#EFF4FF] border-[#0071E3]/30' : 'bg-white border-black/[0.05]'}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-7 h-7 bg-white rounded-[7px] border border-black/[0.08] flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <Building2 size={11} className="text-slate-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[8px] font-bold text-[#1D1D1F] truncate">{sc.name}</p>
+                  <p className="text-[6.5px] text-[#8E8E93]">{sc.short}</p>
+                </div>
+                {sc.active && <span className="text-[6px] font-bold bg-[#0071E3] text-white px-1.5 py-[2px] rounded-full flex-shrink-0">Active</span>}
+              </div>
+              <div className="grid grid-cols-2 gap-1.5">
+                <div className="bg-white/80 rounded-[6px] p-1.5 text-center">
+                  <p className="text-[9px] font-black text-[#1D1D1F]">{sc.students}</p>
+                  <p className="text-[5.5px] text-[#8E8E93]">Students</p>
+                </div>
+                <div className="bg-white/80 rounded-[6px] p-1.5 text-center">
+                  <p className="text-[7px] font-black text-[#1D1D1F]">{sc.collected}</p>
+                  <p className="text-[5.5px] text-[#8E8E93]">Collected</p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <button className="w-full border border-dashed border-[#0071E3]/40 rounded-[9px] py-2 text-[7.5px] font-semibold text-[#0071E3]/60 text-center">
+            + Add School
+          </button>
+        </div>
+      </div>
+    </AdminAppShell>
+  );
+}
+
+function AIMockup() {
+  const messages = [
+    { from: 'user', text: 'Who has pending fees in Class 9?' },
+    { from: 'ai',   text: '3 students in Class 9B — Ravi S. (₹4,800), Suresh T. (₹3,200), and Meena K. (₹1,600). Total: ₹9,600.' },
+    { from: 'user', text: 'Send reminders to their parents' },
+    { from: 'ai',   text: 'Done. SMS reminders sent to all 3 parents ✓' },
+  ];
+  return (
+    <AdminAppShell route="ai">
+      <div className="flex flex-col h-full">
+        <div className="px-3 py-2 bg-white border-b border-black/[0.05] flex items-center gap-2 flex-shrink-0">
+          <div className="w-5 h-5 rounded-[5px] flex items-center justify-center flex-shrink-0"
+               style={{ background: 'linear-gradient(135deg, #7C3AED, #0071E3)' }}>
+            <Zap size={9} className="text-white" strokeWidth={2} />
+          </div>
+          <div>
+            <p className="text-[8.5px] font-bold text-[#1D1D1F]">AI Fee Assistant</p>
+            <p className="text-[6px] text-[#8E8E93]">Ask anything about fees, students, or collections</p>
+          </div>
+        </div>
+        <div className="flex-1 overflow-hidden px-3 py-2 space-y-2">
+          {messages.map((m, i) => (
+            <div key={i} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[78%] px-2.5 py-1.5 rounded-[10px] text-[7.5px] leading-relaxed
+                ${m.from === 'user'
+                  ? 'bg-[#0071E3] text-white rounded-br-[3px]'
+                  : 'bg-white border border-black/[0.06] text-[#1D1D1F] rounded-bl-[3px]'}`}>
+                {m.text}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="px-3 py-2 bg-white border-t border-black/[0.05] flex-shrink-0">
+          <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-[8px] px-2.5 py-1.5">
+            <span className="text-[7.5px] text-[#8E8E93] flex-1">Ask anything about fees, students...</span>
+            <div className="w-5 h-5 bg-[#0071E3] rounded-[5px] flex items-center justify-center flex-shrink-0">
+              <ArrowRight size={8} className="text-white" strokeWidth={2.5} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </AdminAppShell>
   );
 }
 
@@ -594,11 +1042,6 @@ export default function MarketingPage() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  // Auto-cycle features in the active app
-  useEffect(() => {
-    const t = setInterval(() => setActiveFeature(f => (f + 1) % APPS[activeApp].features.length), 2800);
-    return () => clearInterval(t);
-  }, [activeApp]);
 
   const currentApp = APPS[activeApp];
 
@@ -902,15 +1345,23 @@ export default function MarketingPage() {
               {/* Right — mockup */}
               <div className="flex justify-center">
                 {currentApp.id === 'admin' && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="w-full max-w-[520px]"
-                    style={{ boxShadow: '0 40px 100px rgba(0,113,227,0.12)' }}
-                  >
-                    <DashboardMockup />
-                  </motion.div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeFeature}
+                      initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.97 }}
+                      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      className="w-full max-w-[520px]"
+                    >
+                      {activeFeature === 0 && <DashboardMockup />}
+                      {activeFeature === 1 && <FeeManagementMockup />}
+                      {activeFeature === 2 && <StudentsMockup />}
+                      {activeFeature === 3 && <ReportsMockup />}
+                      {activeFeature === 4 && <MultiSchoolMockup />}
+                      {activeFeature === 5 && <AIMockup />}
+                    </motion.div>
+                  </AnimatePresence>
                 )}
                 {currentApp.id === 'teacher' && (
                   <motion.div
@@ -975,24 +1426,21 @@ export default function MarketingPage() {
       </MaskContainer>
 
       {/* ── Dashboard showcase ───────────────────────────────────────────── */}
-      <section id="showcase" className="py-24 bg-white overflow-hidden">
-        <div className="max-w-[1080px] mx-auto px-5">
+      <section id="showcase" className="bg-white overflow-hidden">
+        <div className="max-w-[1080px] mx-auto px-5 pt-24">
           <FadeUp>
             <h2 className="text-[clamp(40px,5vw,58px)] font-black text-[#1D1D1F] tracking-[-0.04em] leading-[1.04] mb-4 max-w-2xl"
                 style={{ textWrap: 'balance' }}>
               Built for Indian schools.<br />Designed for everyone.
             </h2>
-            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-xl mb-14">
+            <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-xl">
               From the principal's financial overview to the teacher's daily roll call — EduFee works for every role, beautifully.
             </p>
           </FadeUp>
-          <FadeUp delay={0.1}>
-            <div className="rounded-[20px] overflow-hidden"
-                 style={{ boxShadow: '0 40px 120px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.06)' }}>
-              <DashboardMockup />
-            </div>
-          </FadeUp>
         </div>
+        <MacbookScroll showGradient title="">
+          <DashboardMockup compact />
+        </MacbookScroll>
       </section>
 
       {/* ── Testimonials — auto-scroll marquee ──────────────────────────── */}
@@ -1062,121 +1510,87 @@ export default function MarketingPage() {
           <FadeUp>
             <h2 className="text-[clamp(36px,4.5vw,52px)] font-black text-[#1D1D1F] tracking-[-0.04em] mb-3">Simple, honest pricing.</h2>
             <p className="text-[16px] text-[#6E6E73] leading-relaxed max-w-md mb-14">
-              All four apps included in every plan. Pay per student, scale as you grow.
+              One flat rate. All four apps included. Pay only for the students you have.
             </p>
           </FadeUp>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              {
-                name: 'Starter',
-                price: '₹499',
-                perStudent: '₹3.33',
-                limit: 'Up to 150 students',
-                desc: 'Perfect for small schools getting started with digital fee management.',
-                features: [
-                  'Admin Dashboard (web)',
-                  'Teacher App (mobile + web)',
-                  'Parent Portal (mobile + web)',
-                  'Fee collection & receipts',
-                  'Attendance tracking',
-                  'Basic monthly reports',
-                  'Email support',
-                ],
-                cta: 'Start free trial',
-                highlight: false,
-              },
-              {
-                name: 'Growth',
-                price: '₹999',
-                perStudent: '₹2.00',
-                limit: 'Up to 500 students',
-                desc: 'The most popular plan for established schools with multiple classes.',
-                features: [
-                  'Everything in Starter',
-                  'Event Management App',
-                  'SMS parent notifications',
-                  'AI fee assistant',
-                  'Monthly & annual reports',
-                  'Multi-class management',
-                  'Priority support',
-                ],
-                cta: 'Start free trial',
-                highlight: true,
-              },
-              {
-                name: 'Scale',
-                price: '₹2,499',
-                perStudent: '₹1.25',
-                limit: 'Up to 2,000 students',
-                desc: 'For large schools and multi-branch institutions needing full control.',
-                features: [
-                  'Everything in Growth',
-                  'Multi-school account switching',
-                  'Dedicated onboarding manager',
-                  'Custom fee structures',
-                  'Advanced audit reports',
-                  'API access',
-                  'SLA-backed support',
-                ],
-                cta: 'Contact us',
-                highlight: false,
-              },
-            ].map((plan, i) => (
-              <FadeUp key={plan.name} delay={i * 0.08}>
-                <div className={`rounded-[24px] p-8 h-full flex flex-col relative ${
-                  plan.highlight
-                    ? 'bg-[#0071E3] text-white'
-                    : 'bg-white border border-black/[0.07]'
-                }`}
-                style={plan.highlight
-                  ? { boxShadow: '0 16px 48px rgba(0,113,227,0.28)' }
-                  : { boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }
-                }>
-                  {plan.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1D1D1F] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-[0.06em]">
-                      MOST POPULAR
-                    </span>
-                  )}
-                  <div className="mb-6">
-                    <p className={`text-[13px] font-semibold mb-4 ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>{plan.name}</p>
-                    <div className="flex items-end gap-1.5 mb-1">
-                      <span className={`text-[48px] font-black leading-none tracking-[-0.04em] ${plan.highlight ? 'text-white' : 'text-[#1D1D1F]'}`}>{plan.price}</span>
-                      <span className={`text-[14px] mb-2 ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>/month</span>
-                    </div>
-                    <div className={`flex items-center gap-1.5 text-[12px] font-semibold mb-3 ${plan.highlight ? 'text-white/70' : 'text-[#0071E3]'}`}>
-                      <IndianRupee size={11} strokeWidth={2.5} />
-                      {plan.perStudent}/student/month · {plan.limit}
-                    </div>
-                    <p className={`text-[13px] leading-relaxed ${plan.highlight ? 'text-white/60' : 'text-[#6E6E73]'}`}>{plan.desc}</p>
-                  </div>
-
-                  <div className="space-y-2.5 mb-8 flex-1">
-                    {plan.features.map(f => (
-                      <div key={f} className="flex items-start gap-2.5">
-                        <CheckCircle size={14} className={`flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-white/70' : 'text-[#34C759]'}`} strokeWidth={2} />
-                        <span className={`text-[13px] ${plan.highlight ? 'text-white/80' : 'text-[#1D1D1F]'}`}>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Link className={`block w-full text-[14px] font-semibold text-center py-3.5 rounded-full transition-colors active:scale-[0.97] ${
-                    plan.highlight
-                      ? 'bg-white text-[#0071E3] hover:bg-blue-50 shadow-[0_4px_12px_rgba(0,0,0,0.12)]'
-                      : 'bg-[#0071E3] text-white hover:bg-[#0077ED] shadow-[0_4px_16px_rgba(0,113,227,0.28)]'
-                  }`}>
-                    {plan.cta}
-                  </Link>
-                  {plan.highlight && (
-                    <p className="text-[11px] text-white/50 text-center mt-3">30 days free · No credit card needed</p>
-                  )}
+          {/* Main price card */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <FadeUp>
+              <div className="rounded-[24px] p-10 h-full flex flex-col bg-[#0071E3]"
+                   style={{ boxShadow: '0 16px 48px rgba(0,113,227,0.28)' }}>
+                <p className="text-[13px] font-semibold text-white/60 mb-6">EduFee — All apps</p>
+                <div className="flex items-end gap-2 mb-2">
+                  <span className="text-[72px] font-black leading-none tracking-[-0.04em] text-white">₹999</span>
                 </div>
-              </FadeUp>
-            ))}
+                <div className="flex items-center gap-1.5 text-[15px] font-semibold text-white/70 mb-6">
+                  <IndianRupee size={13} strokeWidth={2.5} />
+                  <span>per student · per year</span>
+                </div>
+                <p className="text-[14px] text-white/60 leading-relaxed mb-8">
+                  One subscription covers all four apps for your entire school. No hidden per-module charges.
+                </p>
+                <div className="space-y-2.5 mb-10 flex-1">
+                  {[
+                    'Admin Dashboard — fee collection & receipts',
+                    'Teacher App — attendance & class register',
+                    'Parent Portal — payments & notifications',
+                    'Event Management — school calendar',
+                    'PDF receipts generated instantly',
+                    'SMS & in-app parent alerts',
+                    'Annual & term-wise reports',
+                    'Dedicated onboarding support',
+                  ].map(f => (
+                    <div key={f} className="flex items-start gap-2.5">
+                      <CheckCircle size={14} className="flex-shrink-0 mt-0.5 text-white/70" strokeWidth={2} />
+                      <span className="text-[13px] text-white/80">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link className="block w-full text-[14px] font-semibold text-center py-3.5 rounded-full bg-white text-[#0071E3] hover:bg-blue-50 transition-colors active:scale-[0.97]"
+                      style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.12)' }}>
+                  Start free trial
+                </Link>
+                <p className="text-[11px] text-white/50 text-center mt-3">30 days free · No credit card needed</p>
+              </div>
+            </FadeUp>
+
+            {/* School-size examples */}
+            <FadeUp delay={0.08}>
+              <div className="rounded-[24px] p-8 h-full flex flex-col border border-black/[0.07]"
+                   style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}>
+                <p className="text-[13px] font-semibold text-[#6E6E73] mb-6">What your school pays</p>
+                <div className="space-y-3 flex-1">
+                  {[
+                    { size: '100 students',  annual: '₹99,900',   note: 'Small primary school' },
+                    { size: '250 students',  annual: '₹2,49,750', note: 'Mid-size school'       },
+                    { size: '500 students',  annual: '₹4,99,500', note: 'Large school'          },
+                    { size: '1,000 students',annual: '₹9,99,000', note: 'Multi-branch school'   },
+                  ].map((row, i) => (
+                    <div key={row.size} className={`flex items-center justify-between p-4 rounded-[14px] ${i === 1 ? 'bg-[#EFF4FF]' : 'bg-[#F5F5F7]'}`}>
+                      <div>
+                        <p className="text-[14px] font-bold text-[#1D1D1F]">{row.size}</p>
+                        <p className="text-[12px] text-[#6E6E73]">{row.note}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className={`text-[16px] font-black tracking-[-0.03em] ${i === 1 ? 'text-[#0071E3]' : 'text-[#1D1D1F]'}`}>{row.annual}</p>
+                        <p className="text-[11px] text-[#6E6E73]">per year</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 pt-6 border-t border-black/[0.06]">
+                  <p className="text-[13px] text-[#6E6E73] leading-relaxed">
+                    Enrol only the students currently in your school. Add or remove students at renewal — you only pay for what you use.
+                  </p>
+                </div>
+              </div>
+            </FadeUp>
           </div>
+
           <FadeUp delay={0.2}>
             <p className="text-center text-[13px] text-[#6E6E73] mt-8">
-              All prices billed annually. Monthly billing available at +20%. GST extra.
+              Billed annually. GST extra.
             </p>
           </FadeUp>
         </div>
